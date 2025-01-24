@@ -1,0 +1,22 @@
+{% load static %}  
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Рецепты от Нетологии</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> 
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/x-icon">
+</head>
+<body>
+    {% if recipe %}
+        <h1>Рецепт: {{ dish_name }}</h1>
+        <ul>
+        {% for ingredient, amount in recipe.items %}
+            <li>{{ ingredient }}: {{ amount }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Такого рецепта не знаю :(</p>
+    {% endif %}
+</body>
+</html>

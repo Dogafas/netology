@@ -1,0 +1,19 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #ade9af;
+}
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center; 
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 5px; 
+}
