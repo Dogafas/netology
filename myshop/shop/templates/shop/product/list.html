@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+  {% if category %}{{ category.name }}{% else %}Autoparts{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -35,13 +35,13 @@
   <div class="pagination">
       <span class="step-links">
           {% if products.has_previous %}
-              <a href="?page={{ products.previous_page_number }}">Previous</a>
+              <a href="?page={{ products.previous_page_number }}">↞ Previous</a>
           {% endif %}
           <span class="current">
               Page {{ products.number }} of {{ products.paginator.num_pages }}.
           </span>
           {% if products.has_next %}
-              <a href="?page={{ products.next_page_number }}">Next</a>
+              <a href="?page={{ products.next_page_number }}">Next ↠</a>
           {% endif %}
       </span>
   </div>
