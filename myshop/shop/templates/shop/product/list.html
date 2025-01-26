@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-  <div id="sidebar">
+  <div class="sidebar">
     <h3>Categories</h3>
     <ul>
       <li {% if not category %}class="selected"{% endif %}>
@@ -19,7 +19,7 @@
       {% endfor %}
     </ul>
   </div>
-  <div id="main" class="product-list">
+  <div class="main product-list">
     <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
     {% for product in products %}
       <div class="item">
@@ -31,20 +31,22 @@
         ${{ product.price }}
       </div>
     {% endfor %}
-
-  <div class="pagination">
-      <span class="step-links">
-          {% if products.has_previous %}
-              <a href="?page={{ products.previous_page_number }}">↞ Previous</a>
-          {% endif %}
-          <span class="current">
-              Page {{ products.number }} of {{ products.paginator.num_pages }}.
-          </span>
-          {% if products.has_next %}
-              <a href="?page={{ products.next_page_number }}">Next ↠</a>
-          {% endif %}
-      </span>
   </div>
 
-  </div>
+  <div class="pagination-container">
+    <div class="pagination">
+        <span class="step-links">
+            {% if products.has_previous %}
+                <a href="?page={{ products.previous_page_number }}">↞ Previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ products.number }} of {{ products.paginator.num_pages }}.
+            </span>
+            {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}">Next ↠</a>
+            {% endif %}
+        </span>
+      </div>
+   </div>
+
 {% endblock %}

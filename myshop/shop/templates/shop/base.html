@@ -8,10 +8,11 @@
     <link rel="icon" type="image/x-icon" href="{% static 'img/auto-repair.ico' %}">
   </head>
   <body>
-    <div id="header">
-      <a href="/" class="logo">AUTOPATRTS ONLINE-SHOP</a>
+
+    <div class="header">
+      <a href="/" class="logo">AUTOPARTS ONLINE-SHOP</a>
     </div>
-    <div id="subheader">
+    <div class="subheader">
       <div class="cart">
         {% with total_items=cart|length %}
           {% if total_items > 0 %}
@@ -26,7 +27,7 @@
         {% endwith %}
       </div>
     </div>
-    <div id="content">
+    <div class="content">
       {% block content %}
       {% endblock %}
     </div>
