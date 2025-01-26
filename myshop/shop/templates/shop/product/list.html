@@ -31,5 +31,20 @@
         ${{ product.price }}
       </div>
     {% endfor %}
+
+  <div class="pagination">
+      <span class="step-links">
+          {% if products.has_previous %}
+              <a href="?page={{ products.previous_page_number }}">Previous</a>
+          {% endif %}
+          <span class="current">
+              Page {{ products.number }} of {{ products.paginator.num_pages }}.
+          </span>
+          {% if products.has_next %}
+              <a href="?page={{ products.next_page_number }}">Next</a>
+          {% endif %}
+      </span>
+  </div>
+
   </div>
 {% endblock %}
