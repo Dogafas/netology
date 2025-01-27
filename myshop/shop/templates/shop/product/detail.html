@@ -6,21 +6,76 @@
 {% endblock %}
 {% block content %}
 
-  <div class="product-detail">
-    <img src="{% if product.image %}{{ product.image.url }}{% else %}
-    {% static "img/no_image.png" %}{% endif %}">
-    <h1>{{ product.name }}</h1>
-    <h2>
-      <a href="{{ product.category.get_absolute_url }}">
-        {{ product.category }}
-      </a>
-    </h2>
-    <p class="price">${{ product.price }}</p>
-    <form action="{% url "cart:cart_add" product.id %}" method="post">
-      {{ cart_product_form }}
-      {% csrf_token %}
-      <input type="submit" value="Add to cart">
-    </form>
-    <div class="description"> {{ product.description|linebreaks }}</div> 
+<div class="product-detail">
+  <img src="{% if product.image %}{{ product.image.url }}{% else %}
+  {% static "img/no_image.png" %}{% endif %}">
+   <div class="title-container">
+       <h1>{{ product.name }}</h1>
+      <h2>
+          <a href="{{ product.category.get_absolute_url }}">
+            {{ product.category }}
+          </a>
+      </h2>
+   </div>
+  <div class="price-form-container">
+      <p class="price">${{ product.price }}</p>
+      <form action="{% url "cart:cart_add" product.id %}" method="post" class="cart-form">  
+        <div class="quantity-controls">  
+           <button type="button" class="quantity-btn minus-btn">-</button>  
+          <input type="number" name="quantity" value="1" min="1" class="quantity-input" readonly>  
+           <button type="button" class="quantity-btn plus-btn">+</button>  
+        </div>  
+        {% csrf_token %}
+          <input type="hidden" name="override" value="False">  
+          <input type="submit" value="Add to cart" class="add-to-cart-btn"> 
+      </form>
   </div>
+  <div class="description"> {{ product.description|linebreaks }}</div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const quantityInput = document.querySelector('.quantity-input');
+      const minusBtn = document.querySelector('.minus-btn');
+      const plusBtn = document.querySelector('.plus-btn');
+      const cartForm = document.querySelector('.cart-form');
+
+
+     minusBtn.addEventListener('click', function () {
+          let currentValue = parseInt(quantityInput.value, 10);
+          if (currentValue > 1) {
+              quantityInput.value = currentValue - 1;
+          }
+      });
+
+    plusBtn.addEventListener('click', function () {
+          let currentValue = parseInt(quantityInput.value, 10);
+          quantityInput.value = currentValue + 1;
+      });
+
+   cartForm.addEventListener('submit', function(event){ 
+     event.preventDefault(); 
+     const formData = new FormData(cartForm);  
+     const url = cartForm.action;
+
+    fetch(url, {  
+         method: 'POST', 
+        body: formData, 
+        headers: {    
+            'X-CSRFToken': formData.get('csrfmiddlewaretoken')  
+         }  
+   }) 
+         .then(response => {  
+            if (response.ok) { 
+                window.location.href = "{% url 'cart:cart_detail' %}"; 
+              } else {    
+               console.error('Error adding to cart'); 
+             } 
+          }) 
+         .catch(error => {  
+              console.error('Fetch error:', error);  
+          }); 
+      }); 
+  });
+</script>
+  
 {% endblock %}

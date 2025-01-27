@@ -216,49 +216,76 @@ padding: 10px;
   border-radius: 8px;
     object-fit: contain;
 }
-
+ .title-container {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+}
 .product-detail h1 {
   margin-bottom: 10px;
 }
 .product-detail h2 {
   margin-bottom: 15px;
+}
+.product-detail h2 a {
+  text-decoration: none;
   color: #007bff;
+  transition: color 0.3s ease;
 }
 
+.product-detail h2 a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+.price-form-container {
+  display: flex;
+  align-items: center;
+     margin-bottom: 20px;
+ }
 .product-detail .price {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 20px;
-  color: #28a745; /* Зеленый цвет для цены */
+  margin-bottom: 0;
+  color: #28a745;
 }
 
 .product-detail form {
-  margin-bottom: 20px;
+  margin-bottom: 0;
+   margin-left: 20px;
 }
-/* стили для формы*/
-.product-detail form input[type="submit"] {
-  background-color: #28a745; /* Зеленый цвет кнопки */
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-/* стили для формы при наведении*/
-.product-detail form input[type="submit"]:hover {
-  background-color: #218838; /* Более темный зеленый цвет при наведении */
-}
+.quantity-controls { /* ("добавляем стили для контейнера")*/
+  display: flex; /* ("делаем элементы гибкими")*/
+  align-items: center; /* ("выравниваем элементы по вертикали")*/
+  margin-right: 10px; /* ("добавляем отступ справа")*/
+} /* ("добавляем стили для контейнера")*/
+.quantity-btn { /* ("добавляем стили для кнопок")*/
+  background-color: #f0f0f0; /* ("серый фон")*/
+  border: 1px solid #ccc;  /* ("серый бордюр")*/
+  padding: 5px 10px; /* ("отступы")*/
+  cursor: pointer; /* ("курсор")*/
+  margin: 0 5px; /* ("отступы")*/
+  border-radius: 5px; /* ("закругление")*/
+} /* ("добавляем стили для кнопок")*/
 
-.product-detail .description { /* добавляем стили для описания */
-  margin-bottom: 20px;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #555; /* более темный цвет*/
-}
-.product-detail .description p { /* стилизуем абзацы описания*/
-  margin-bottom: 10px;  /* отступ для параграфов*/
-}
+.quantity-input { /* ("добавляем стили для инпута")*/
+  width: 40px; /* ("ширина поля")*/
+  text-align: center; /* ("выравнивание текста")*/
+   border: 1px solid #ccc; /* ("серый бордюр")*/
+    border-radius: 5px; /* ("закругление")*/
+    padding: 5px; /* ("отступы")*/
+} /* ("добавляем стили для инпута")*/
+.add-to-cart-btn { /* ("добавляем стили для кнопки")*/
+  background-color: #28a745; /* ("зеленый цвет кнопки")*/
+  color: white; /* ("белый цвет текста")*/
+  padding: 10px 15px; /* ("отступы")*/
+  border: none; /* ("убираем бордюр")*/
+  border-radius: 5px; /* ("закругление")*/
+  cursor: pointer; /* ("курсор")*/
+  transition: background-color 0.3s ease;  /* ("плавный переход")*/
+} /* ЗДЕСЬ ИЗМЕНЕНИЯ: ("добавляем стили для кнопки")*/
+.add-to-cart-btn:hover { /* ("добавляем стили для кнопки при наведении")*/
+  background-color: #218838;  /* ("темно зеленый цвет при наведении")*/
+} /* ЗДЕСЬ ИЗМЕНЕНИЯ: ("добавляем стили для кнопки при наведении")*/
     /* Стилизация подзаголовка */
     .subheader {
       background-color: #f8f9fa;
@@ -283,69 +310,76 @@ padding: 10px;
     .subheader .cart a:hover {
     text-decoration: underline; /* подчеркиваем при наведении*/
     }
-    /* Стили для страницы оформления заказа */ 
-.order-info { 
-    max-width: 800px; /* Максимальная ширина контейнера */ 
-    margin: 20px auto; /* Выравнивание по центру и добавление отступов сверху и снизу */ 
-    padding: 20px; /* Отступы внутри контейнера */ 
-    border: 1px solid #ddd; /* Тонкая рамка */ 
-    border-radius: 8px; /* Закругление углов рамки */ 
-    background-color: #fff; /* Белый фон контейнера */ 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень контейнера */ 
-} 
+    /* Стили для страницы оформления заказа */
+.order-info {
+    max-width: 800px; /* Максимальная ширина контейнера */
+    margin: 20px auto; /* Выравнивание по центру и добавление отступов сверху и снизу */
+    padding: 20px; /* Отступы внутри контейнера */
+    border: 1px solid #ddd; /* Тонкая рамка */
+    border-radius: 8px; /* Закругление углов рамки */
+    background-color: #fff; /* Белый фон контейнера */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень контейнера */
+}
 
-.order-info h3 { 
-    margin-bottom: 10px; /* Отступ снизу у заголовка */ 
-    border-bottom: 1px solid #eee; /* Линия под заголовком */ 
-    padding-bottom: 5px; 
-} 
+.order-info h3 {
+    margin-bottom: 10px; /* Отступ снизу у заголовка */
+    border-bottom: 1px solid #eee; /* Линия под заголовком */
+    padding-bottom: 5px;
+}
 
-.order-info ul { 
-    list-style: none; /* Убираем маркеры списка */ 
-    padding: 0; 
-    margin: 0; 
-} 
-/* стили для элементов списка*/ 
-.order-info li { 
-    display: flex; /* Делаем элемент гибким */ 
-    justify-content: space-between; /* Размещаем элементы по краям */ 
-    align-items: center; /* Выравниваем элементы по вертикали */ 
-    padding: 10px 0; /* Отступы сверху и снизу для каждого элемента */ 
-    border-bottom: 1px solid #eee; /* Линия под каждым элементом */ 
-} 
-/* убираем линию у последнего элемента*/ 
-.order-info li:last-child { 
-    border-bottom: none; /* Убираем линию у последнего элемента */ 
-} 
+.order-info ul {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0;
+    margin: 0;
+}
+/* стили для элементов списка*/
+.order-info li {
+    display: flex; /* Делаем элемент гибким */
+    justify-content: space-between; /* Размещаем элементы по краям */
+    align-items: center; /* Выравниваем элементы по вертикали */
+    padding: 10px 0; /* Отступы сверху и снизу для каждого элемента */
+    border-bottom: 1px solid #eee; /* Линия под каждым элементом */
+}
+/* убираем линию у последнего элемента*/
+.order-info li:last-child {
+    border-bottom: none; /* Убираем линию у последнего элемента */
+}
 
-.order-info li span { 
-    font-weight: bold; /* Выделяем цену жирным */ 
-    color: #28a745; /* Зеленый цвет для цены */ 
-} 
-/* стили для формы заказа*/ 
-.order-form { 
-    max-width: 800px; /* Максимальная ширина формы */ 
-    margin: 20px auto; /* Выравнивание по центру и отступы сверху/снизу */ 
-    padding: 20px; /* Отступы внутри формы */ 
-    border: 1px solid #ddd; /* Тонкая рамка */ 
-    border-radius: 8px; /* Закругление углов рамки */ 
-    background-color: #fff; /* Белый фон */ 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень */ 
-} 
-/* стили для параграфов формы*/ 
-.order-form p { 
-    margin-bottom: 10px; /* Отступ снизу для параграфов */ 
-} 
-/* стили для кнопки отправки*/ 
-.order-form input[type="submit"] { 
-    background-color: #007bff; /* Синий цвет кнопки */ 
-    color: white; /* Белый цвет текста */ 
-    padding: 10px 15px; /* Отступы внутри кнопки */ 
-    border: none; /* Убираем рамку */ 
-    border-radius: 5px; /* Закругление углов кнопки */ 
-    cursor: pointer; /* Меняем курсор на указатель */ 
-    transition: background-color 0.3s ease; /* Плавный переход цвета фона */ 
-} 
-.order-form input[type="submit"]:hover { 
-    background:#eb0653;
+.order-info li span {
+    font-weight: bold; /* Выделяем цену жирным */
+    color: #28a745; /* Зеленый цвет для цены */
+}
+/* стили для формы заказа*/
+.order-form {
+    max-width: 800px; /* Максимальная ширина формы */
+    margin: 20px auto; /* Выравнивание по центру и отступы сверху/снизу */
+    padding: 20px; /* Отступы внутри формы */
+    border: 1px solid #ddd; /* Тонкая рамка */
+    border-radius: 8px; /* Закругление углов рамки */
+    background-color: #fff; /* Белый фон */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень */
+}
+/* стили для параграфов формы*/
+.order-form p {
+    margin-bottom: 10px; /* Отступ снизу для параграфов */
+}
+/* стили для кнопки отправки*/
+.order-form input[type="submit"] {
+    background-color: #007bff; /* Синий цвет кнопки */
+    color: white; /* Белый цвет текста */
+    padding: 10px 15px; /* Отступы внутри кнопки */
+    border: none; /* Убираем рамку */
+    border-radius: 5px; /* Закругление углов кнопки */
+    cursor: pointer; /* Меняем курсор на указатель */
+    transition: background-color 0.3s ease; /* Плавный переход цвета фона */
+}
+/* стили для кнопки отправки при наведении*/
+.order-form input[type="submit"]:hover {
+    background-color: #0056b3; /* Более темный синий цвет при наведении */
+}
+/* Стили для заголовков */
+h1 {
+  text-align: center; /* Выравнивание заголовка по центру */
+  margin-bottom: 20px;  /* Добавим отступ снизу */
+  margin-top: 20px; /* Добавим отступ сверху */
 }
