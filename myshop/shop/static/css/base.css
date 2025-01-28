@@ -240,18 +240,22 @@ padding: 10px;
 .price-form-container {
   display: flex;
   align-items: center;
-     margin-bottom: 20px;
+  margin-bottom: 20px;
+  text-align: center;
  }
 .product-detail .price {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0;
   color: #28a745;
+  text-align: center;
+  padding-bottom: 20px;
 }
 
 .product-detail form {
   margin-bottom: 0;
    margin-left: 20px;
+   display: flex;
 }
 .quantity-controls { /* ("добавляем стили для контейнера")*/
   display: flex; /* ("делаем элементы гибкими")*/
@@ -282,10 +286,10 @@ padding: 10px;
   border-radius: 5px; /* ("закругление")*/
   cursor: pointer; /* ("курсор")*/
   transition: background-color 0.3s ease;  /* ("плавный переход")*/
-} /* ЗДЕСЬ ИЗМЕНЕНИЯ: ("добавляем стили для кнопки")*/
+} /*  ("добавляем стили для кнопки")*/
 .add-to-cart-btn:hover { /* ("добавляем стили для кнопки при наведении")*/
-  background-color: #218838;  /* ("темно зеленый цвет при наведении")*/
-} /* ЗДЕСЬ ИЗМЕНЕНИЯ: ("добавляем стили для кнопки при наведении")*/
+  background-color: #da1c42;  /* ("темно зеленый цвет при наведении")*/
+} /*  ("добавляем стили для кнопки при наведении")*/
     /* Стилизация подзаголовка */
     .subheader {
       background-color: #f8f9fa;
@@ -383,3 +387,42 @@ h1 {
   margin-bottom: 20px;  /* Добавим отступ снизу */
   margin-top: 20px; /* Добавим отступ сверху */
 }
+
+
+.cart td form {
+  display: flex;
+  align-items: center;
+  }
+  .cart td .quantity-controls {
+  display: flex;
+  align-items: center;
+   margin-right: 10px;
+  }
+  .cart td .quantity-btn {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 0 5px;
+  border-radius: 5px;
+  }
+ 
+  .cart td .quantity-input {
+  width: 40px;
+  text-align: center;
+   border: 1px solid #ccc;
+     border-radius: 5px;
+     padding: 5px;
+  }
+  .cart td .update-button {
+    background-color: #007bff;
+     color: white;
+     padding: 8px 12px;
+     border: none;
+     border-radius: 5px;
+      cursor: pointer;
+       transition: background-color 0.3s ease;
+     }
+  .cart td .update-button:hover {
+       background-color: #0056b3;
+     }

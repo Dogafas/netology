@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-  Your shopping cart 
+  Your shopping cart
 {% endblock %}
 
 {% block content %}
@@ -34,10 +34,14 @@
               </td>
               <td>{{ product.name }}</td>
               <td>
-                <form action="{% url "cart:cart_add" product.id %}" method="post">
-                  {{ item.update_quantity_form.quantity }}
-                  {{ item.update_quantity_form.override }}
-                  <input type="submit" value="Update">
+                <form action="{% url "cart:cart_add" product.id %}" method="post" class="quantity-form">
+                  <div class="quantity-controls">
+                     <button type="button" class="quantity-btn minus-btn">-</button>
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="quantity-input" readonly>
+                     <button type="button" class="quantity-btn plus-btn">+</button>
+                  </div>
+                   <input type="hidden" name="override" value="True">
+                  <input type="submit" value="Update" class="update-button">
                   {% csrf_token %}
                 </form>
               </td>
@@ -66,4 +70,52 @@
       <a href="{% url "orders:order_create" %}" class="button">Checkout</a>
     </p>
   </div>
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+        const quantityForms = document.querySelectorAll('.quantity-form');
+
+        quantityForms.forEach(form => {
+            const quantityInput = form.querySelector('.quantity-input');
+            const minusBtn = form.querySelector('.minus-btn');
+            const plusBtn = form.querySelector('.plus-btn');
+
+
+            minusBtn.addEventListener('click', function () {
+                let currentValue = parseInt(quantityInput.value, 10);
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+
+            plusBtn.addEventListener('click', function () {
+                let currentValue = parseInt(quantityInput.value, 10);
+                quantityInput.value = currentValue + 1;
+            });
+
+             form.addEventListener('submit', function(event){
+                 event.preventDefault();
+                const formData = new FormData(form);
+                const url = form.action;
+                 fetch(url, {
+                     method: 'POST',
+                     body: formData,
+                      headers: {
+                         'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                     }
+                 })
+                    .then(response => {
+                         if (response.ok) {
+                            window.location.reload();
+                         } else {
+                            console.error('Error updating cart');
+                         }
+                     })
+                    .catch(error => {
+                         console.error('Fetch error:', error);
+                     });
+             });
+
+        });
+    });
+</script>
 {% endblock %}
