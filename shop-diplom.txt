@@ -1,3 +1,5 @@
 
-.\env\myshop\Scripts\activate
+.\env\myshop\Scripts\activate; cd myshop
+
+celery -A myshop worker --loglevel=info --pool=solo
 
