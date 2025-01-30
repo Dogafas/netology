@@ -8,4 +8,3 @@ urlpatterns = [
     path('completed/', views.payment_completed, name='completed'),
     path('canceled/', views.payment_canceled, name='canceled'),
 ]
-]
