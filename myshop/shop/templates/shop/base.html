@@ -18,8 +18,8 @@
           {% if total_items > 0 %}
             Your cart:
             <a href="{% url "cart:cart_detail" %}">
-              {{ total_items }} item{{ total_items|pluralize }},
-              ${{ cart.get_total_price }}
+              {{ total_items }} item{{ total_items|pluralize }}, 
+              {{ cart.get_total_price }} ₽
             </a>
           {% elif not order %}
             Your cart is empty.
