@@ -31,6 +31,8 @@ def stripe_webhook(request):
                 return HttpResponse(status=404)
                 # помечаем заказ как оплаченный
             order.paid = True
+            # сохраняем ID платежа (оплаты)
+            order.stripe_id = session.payment_intent
             order.save()
         
     
