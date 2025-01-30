@@ -5,3 +5,5 @@ celery -A myshop worker --loglevel=info --pool=solo
 
 celery -A tasks flower --port=5555
 
+
+payment_intent.succeeded
