@@ -7,6 +7,7 @@ def order_payment(obj):
     url = obj.get_stripe_url()
     if obj.stripe_id:
         html = f'<a href="{url}" target="_blank">{obj.stripe_id}</a>'
+        # вернем неэкранированную ссылку
         return mark_safe(html)
 order_payment.short_description = 'Stripe payment'
 
@@ -21,4 +22,5 @@ class OrderAdmin(admin.ModelAdmin):
                     order_payment, 'created', 'updated']
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
+    list_per_page = 8
 
