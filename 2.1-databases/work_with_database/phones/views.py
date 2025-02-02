@@ -11,10 +11,6 @@ def show_catalog(request):
 
     if sort_by == 'name':
         phones = Phone.objects.all().order_by('name')
-    elif sort_by == 'price_asc':
-        phones = Phone.objects.all().order_by('price')
-    elif sort_by == 'price_desc':
-        phones = Phone.objects.all().order_by('-price')
     elif sort_by == 'min_price': 
           phones = Phone.objects.all().order_by('price') 
     elif sort_by == 'max_price':
