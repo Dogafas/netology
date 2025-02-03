@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from phones.models import Phone
 
 class Command(BaseCommand):
+    help = 'Импорт товаров из CSV файла'
     def add_arguments(self, parser):
         pass
 
