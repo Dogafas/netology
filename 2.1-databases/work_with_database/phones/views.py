@@ -23,6 +23,6 @@ def show_catalog(request):
 
 def show_product(request, slug):
     template = 'product.html'
-    phone = get_object_or_404(Phone, name=slug)
+    phone = get_object_or_404(Phone, slug=slug)
     context = {'phone': phone}
     return render(request, template, context)
