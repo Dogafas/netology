@@ -4,6 +4,12 @@ from django.utils.safestring import mark_safe
 import csv
 from django.http import HttpResponse
 import datetime
+from django.contrib import admin
+from django.urls import reverse
+
+admin.site.site_header = "AUTOPARTS ADMIN ONLINE-SHOP"
+
+
 
 def export_to_csv(modeladmin, request, queryset):
     opts = modeladmin.model._meta
@@ -37,11 +43,15 @@ class OrderItemInline(admin.TabularInline):
     model = OrderItem
     raw_id_fields = ['product']
 
+def order_detail(obj):
+    url = reverse('orders:admin_order_detail', args=[obj.id])
+    return mark_safe(f'<a href="{url}">View</a>') 
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'email',
                     'address', 'postal_code', 'city', 'paid',
-                    order_payment, 'created', 'updated']
+                    order_payment, 'created', 'updated', order_detail,]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
     actions = [export_to_csv]
