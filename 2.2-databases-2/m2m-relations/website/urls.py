@@ -19,6 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.site_header = "ГАЗЕТА ПРАВДА"  # ("Изменяем заголовок сайта")
+admin.site.site_title = "АДМИНКА"  # ("Изменяем title страницы (на вкладке браузера)")
+admin.site.index_title = '"Главная панель администратора газеты "ПРАВДА"'  # ("Изменяем заголовок главной страницы")
+
 urlpatterns = [
     path('', include('articles.urls')),
     path('admin/', admin.site.urls),
