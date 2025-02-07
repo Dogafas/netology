@@ -20,6 +20,7 @@ class Article(models.Model):
     published_at = models.DateTimeField(verbose_name='Дата публикации')
     image = models.ImageField(null=True, blank=True, verbose_name='Изображение',)
     tags = models.ManyToManyField(Tag, related_name='articles', through='Scope')
+    video_url = models.URLField(blank=True, null=True, verbose_name='Ссылка на видео')
 
     class Meta:
         verbose_name = 'Статья'

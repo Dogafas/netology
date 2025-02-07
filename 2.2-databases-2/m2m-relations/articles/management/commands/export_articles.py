@@ -27,7 +27,8 @@ class Command(BaseCommand):
                 'text': article.text,
                 'published_at': article.published_at.isoformat(),
                 'image': str(article.image),  
-                'tags': tags
+                'tags': tags,
+                'video_url': article.video_url
             })
       
         file_path = os.path.join(settings.BASE_DIR, 'articles.json') 
