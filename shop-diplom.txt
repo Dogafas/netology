@@ -2,7 +2,7 @@
 
 celery -A myshop worker --loglevel=info --pool=solo
 
-celery -A tasks flower --port=5555
+celery -A myshop flower --port=5555
 
 --------------------------------------------------------
 Чтобы протестировать работоспособность платежного сервиса нужно заргегистировать аккаунт вашего сервиса по ссылке https://dashboard.stripe.com/register
