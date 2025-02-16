@@ -5,10 +5,11 @@ from django.views.decorators.csrf import csrf_exempt
 from .tasks import payment_completed
 from orders.models import Order
 
+
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
-    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
     event = None
 
     try:
@@ -21,11 +22,10 @@ def stripe_webhook(request):
     except stripe.error.SignatureVerificationError as e:
         # Неверная подпись
         return HttpResponse(status=400)
-    
-    if event.type == 'checkout.session.completed':
+
+    if event.type == "checkout.session.completed":
         session = event.data.object
-        if (session.mode == 'payment'
-            and session.payment_status == 'paid'):
+        if session.mode == "payment" and session.payment_status == "paid":
             try:
                 order = Order.objects.get(id=session.client_reference_id)
             except Order.DoesNotExist:
@@ -36,6 +36,5 @@ def stripe_webhook(request):
             order.stripe_id = session.payment_intent
             order.save()
             payment_completed.delay(order.id)
-        
-    
+
     return HttpResponse(status=200)

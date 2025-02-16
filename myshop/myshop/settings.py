@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-h81y3t4&$&qaqsqs*3p-$zes$y!_(wuo2)v&-loey9t@32udt&'
+SECRET_KEY = "django-insecure-h81y3t4&$&qaqsqs*3p-$zes$y!_(wuo2)v&-loey9t@32udt&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,64 +36,63 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'cart.apps.CartConfig',
-    'orders.apps.OrdersConfig',
-    'payment.apps.PaymentConfig',
-    'shop.apps.ShopConfig',
-
-    'debug_toolbar',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "cart.apps.CartConfig",
+    "orders.apps.OrdersConfig",
+    "payment.apps.PaymentConfig",
+    "shop.apps.ShopConfig",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'myshop.urls'
+ROOT_URLCONF = "myshop.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'cart.context_processors.cart'
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "cart.context_processors.cart",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'myshop.wsgi.application'
+WSGI_APPLICATION = "myshop.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql', 
-        'NAME': os.getenv('POSTGRES_DB'), 
-        'USER': os.getenv('POSTGRES_USER'), 
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'), 
-        'HOST': os.getenv('POSTGRES_HOST'), 
-        'PORT': os.getenv('POSTGRES_PORT'), 
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "PORT": os.getenv("POSTGRES_PORT"),
     }
 }
 
@@ -103,16 +102,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -120,9 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -132,49 +131,49 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-MEDIA_URL = 'media/'
+MEDIA_URL = "media/"
 # MEDIA_ROOT = BASE_DIR/ 'media'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CART_SESSION_ID = 'cart'
+CART_SESSION_ID = "cart"
 
 
-CELERY_BROKER_URL = os.environ.get('RABBITMQ_BROKER_URL') 
-CELERY_RESULT_BACKEND = 'disabled://' 
-CELERY_ACCEPT_CONTENT = ['application/json'] 
-CELERY_TASK_SERIALIZER = 'json' 
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Europe/Moscow' 
+CELERY_BROKER_URL = os.environ.get("RABBITMQ_BROKER_URL")
+CELERY_RESULT_BACKEND = "disabled://"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "Europe/Moscow"
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Email server configuration
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 
 
 # конфигурация платежной системы
-STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
-STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
-STRIPE_API_VERSION = '2025-01-27.acacia'
+STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+STRIPE_API_VERSION = "2025-01-27.acacia"
 
 # подтверждение оплаты от stripe "payment_intent.succeeded"
-STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET")
 
 INTERNAL_IPS = [
-    '127.0.0.1',
+    "127.0.0.1",
 ]
