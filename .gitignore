@@ -149,3 +149,6 @@ cert.key
 *.crt
 *.key
 
+3.1-drf-intro/.flake8
+3.1-drf-intro/.prettierrc
+3.1-drf-intro/pyproject.toml
