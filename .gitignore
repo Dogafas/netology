@@ -3,6 +3,7 @@
 
 # Игнорировать директорию tmp
 tmp/
+data/
 
 # Игнорировать файлы конфигурации среды
 .env
@@ -152,3 +153,4 @@ cert.key
 3.1-drf-intro/.flake8
 3.1-drf-intro/.prettierrc
 3.1-drf-intro/pyproject.toml
+3.1-drf-intro/smart_home/measurement/management/commands/load_sensors.py
