@@ -18,7 +18,7 @@ class Measurement(models.Model):
     id = models.AutoField(primary_key=True)
     sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE, verbose_name="датчик")
     temperature = models.DecimalField(
-        max_digits=2, decimal_places=1, default=0.0, verbose_name="температура"
+        max_digits=3, decimal_places=1, default=0.0, verbose_name="температура"
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="время создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="время обновления")

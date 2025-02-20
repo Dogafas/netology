@@ -1,5 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from .views import SensorView
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register("sensors", SensorView)
 
 urlpatterns = [
+    path("", include(router.urls)),
+    path("sensors/<pk>/", SensorView.as_view()),
     # TODO: зарегистрируйте необходимые маршруты
 ]
