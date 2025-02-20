@@ -22,7 +22,7 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("measurement.urls")),
+    path("api/", include("measurement.urls")),
 ]
 
 if settings.DEBUG:

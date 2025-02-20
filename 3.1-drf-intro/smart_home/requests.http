@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "name": "ESP32",
-  "description": "Датчик на кухне за холодильником"
+  "description": "Датчик внутри котёнка"
 }
 
 ###
@@ -24,7 +24,7 @@ PATCH {{baseUrl}}/sensors/1/
 Content-Type: application/json
 
 {
-  "description": "Перенес датчик на балкон"
+  "description": "Перенес датчик в собачёнку"
 }
 
 ###
@@ -37,6 +37,27 @@ Content-Type: application/json
   "sensor": 1,
   "temperature": 22.3
 }
+
+###
+
+# добавление измерения с изображением
+POST {{baseUrl}}/measurements/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="sensor"
+
+17
+--WebAppBoundary
+Content-Disposition: form-data; name="temperature"
+
+25.5
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="test_image.jpg"
+Content-Type: image/jpeg
+
+< ./test_image.jpg
+--WebAppBoundary--
 
 ###
 
