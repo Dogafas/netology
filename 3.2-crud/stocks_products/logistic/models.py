@@ -11,8 +11,8 @@ class Stock(models.Model):
     address = models.CharField(max_length=200, unique=True)
     products = models.ManyToManyField(
         Product,
-        through='StockProduct',
-        related_name='stocks',
+        through="StockProduct",
+        related_name="stocks",
     )
 
 
@@ -20,12 +20,12 @@ class StockProduct(models.Model):
     stock = models.ForeignKey(
         Stock,
         on_delete=models.CASCADE,
-        related_name='positions',
+        related_name="positions",
     )
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-        related_name='positions',
+        related_name="positions",
     )
     quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(
