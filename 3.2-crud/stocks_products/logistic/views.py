@@ -5,11 +5,11 @@ from django.db.models import Q
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by("id")
     serializer_class = ProductSerializer
 
     def get_queryset(self):
-        queryset = Product.objects.all()
+        queryset = Product.objects.all().order_by("id")
         search = self.request.query_params.get("search", None)
         if search is not None:
             queryset = queryset.filter(  # поиск продуктов без учета регистра
@@ -19,13 +19,13 @@ class ProductViewSet(ModelViewSet):
 
 
 class StockViewSet(ModelViewSet):
-    queryset = Stock.objects.all()
+    queryset = Stock.objects.all().order_by("id")
     serializer_class = StockSerializer
 
     # при необходимости добавьте параметры фильтрации
     def get_queryset(self):
-        queryset = Stock.objects.all()
+        queryset = Stock.objects.all().order_by("id")
         product_id = self.request.query_params.get("products", None)
         if product_id is not None:
-            queryset = queryset.filter(positions__products__id=product_id).distinct
+            queryset = queryset.filter(positions__product__id=product_id).distinct()
         return queryset

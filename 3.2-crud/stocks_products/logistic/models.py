@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.core.validators import MinValueValidator
 from django.db import models
 
@@ -5,6 +6,9 @@ from django.db import models
 class Product(models.Model):
     title = models.CharField(max_length=60, unique=True)
     description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Stock(models.Model):
@@ -14,6 +18,9 @@ class Stock(models.Model):
         through="StockProduct",
         related_name="stocks",
     )
+
+    def __str__(self):
+        return self.address
 
 
 class StockProduct(models.Model):
@@ -31,5 +38,5 @@ class StockProduct(models.Model):
     price = models.DecimalField(
         max_digits=18,
         decimal_places=2,
-        validators=[MinValueValidator(0)],
+        validators=[MinValueValidator(Decimal("0"))],
     )

@@ -4,7 +4,7 @@
 # Игнорировать директорию tmp
 tmp/
 data/
-
+tests/
 # Игнорировать файлы конфигурации среды
 .env
 
@@ -158,3 +158,4 @@ cert.key
 3.2-crud/.flake8
 3.2-crud/.prettierrc
 3.2-crud/pyproject.toml
+3.2-crud/stocks_products/pytest.ini
