@@ -4,7 +4,6 @@ from django.utils.safestring import mark_safe
 import csv
 from django.http import HttpResponse
 import datetime
-from django.contrib import admin
 from django.urls import reverse
 
 admin.site.site_header = "AUTOPARTS ADMIN ONLINE-SHOP"

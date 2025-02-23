@@ -1,12 +1,10 @@
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import get_object_or_404, render, redirect, get_list_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 from cart.cart import Cart
 from .forms import OrderCreateForm
 from .models import OrderItem, Order
 from .tasks import order_created
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
-from django.conf import settings
 from django.template.loader import render_to_string
 import weasyprint
 from django.contrib.staticfiles import finders
