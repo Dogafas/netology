@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "payment.apps.PaymentConfig",
     "shop.apps.ShopConfig",
     "debug_toolbar",
+    "coupons.apps.CouponsConfig",
 ]
 
 MIDDLEWARE = [
