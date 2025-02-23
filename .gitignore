@@ -149,3 +149,7 @@ cert.key
 *.crt
 *.key
 
+.flake8
+.prettierrc
+pyproject.toml
+shop-diplom.txt
