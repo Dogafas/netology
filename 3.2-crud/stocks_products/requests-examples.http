@@ -20,7 +20,7 @@ Content-Type: application/json
 ###
 
 # обновление продукта
-PATCH {{baseUrl}}/products/1/
+PATCH {{baseUrl}}/products/5/
 Content-Type: application/json
 
 {
@@ -30,13 +30,13 @@ Content-Type: application/json
 ###
 
 # удаление продукта
-DELETE {{baseUrl}}/products/1/
+DELETE {{baseUrl}}/products/5/
 Content-Type: application/json
 
 ###
 
 # поиск продуктов по названию и описанию
-GET {{baseUrl}}/products/?search=помидор
+GET {{baseUrl}}/products/?search=огур
 Content-Type: application/json
 
 ###
@@ -49,12 +49,12 @@ Content-Type: application/json
   "address": "мой адрес не дом и не улица, мой адрес сегодня такой: www.ленинград-спб.ru3",
   "positions": [
     {
-      "product": 2,
+      "product": 7,
       "quantity": 250,
       "price": 120.50
     },
     {
-      "product": 3,
+      "product": 5,
       "quantity": 100,
       "price": 180
     }
@@ -64,20 +64,20 @@ Content-Type: application/json
 ###
 
 # обновляем записи на складе
-PATCH {{baseUrl}}/stocks/4/
+PATCH {{baseUrl}}/stocks/2/
 Content-Type: application/json
 
 {
   "positions": [
     {
-      "product": 2,
+      "product": 7,
       "quantity": 100,
-      "price": 130.80
+      "price": 150.80
     },
     {
-      "product": 3,
+      "product": 5,
       "quantity": 243,
-      "price": 145
+      "price": 15
     }
   ]
 }
@@ -85,5 +85,11 @@ Content-Type: application/json
 ###
 
 # поиск складов, где есть определенный продукт
-GET {{baseUrl}}/stocks/?products=2
+GET {{baseUrl}}/stocks/?products=7
+Content-Type: application/json
+
+
+###
+# поиск складов, где есть определенный продукт по части описания|названия
+GET {{baseUrl}}/stocks/?search=помид
 Content-Type: application/json
