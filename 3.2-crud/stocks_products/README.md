@@ -59,4 +59,9 @@ python manage.py runserver
 ```
 
 запуск тестов
+
+```python
+
 pytest -v --cache-clear
+
+```
