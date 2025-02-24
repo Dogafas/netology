@@ -57,3 +57,6 @@ manage.py migrate
 ```bash
 python manage.py runserver
 ```
+
+запуск тестов
+pytest -v --cache-clear
