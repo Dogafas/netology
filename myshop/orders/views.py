@@ -10,7 +10,7 @@ import weasyprint
 from django.contrib.staticfiles import finders
 
 
-@staff_member_required
+@staff_member_required  # < - ограничивает доступ к функции только для сотрудников (администраторов)
 def admin_order_pdf(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     html = render_to_string("orders/order/pdf.html", {"order": order})
@@ -50,7 +50,8 @@ def order_create(request):
     return render(request, "orders/order/create.html", {"cart": cart, "form": form})
 
 
-@staff_member_required
+@staff_member_required  # <- доступ только для сотрудников
 def admin_order_detail(request, order_id):
+    # Просмотр деталей заказа администратором
     order = get_object_or_404(Order, id=order_id)
     return render(request, "admin/orders/order/detail.html", {"order": order})

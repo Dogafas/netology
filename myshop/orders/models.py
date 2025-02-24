@@ -8,6 +8,8 @@ from coupons.models import Coupon
 
 
 class Order(models.Model):
+    """информация о заказе и связанных с ним данных"""
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50)
@@ -38,7 +40,7 @@ class Order(models.Model):
         ]
 
     def __str__(self):
-        return f"Order {self.id}"
+        return f"Заказ № {self.id}"
 
     def get_total_cost(self):
         total_cost = self.get_total_cost_before_discount()
@@ -78,6 +80,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    """описывает отдельный товар в заказе"""
+
     order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE)
     product = models.ForeignKey(
         "shop.Product", related_name="order_items", on_delete=models.CASCADE
