@@ -159,3 +159,6 @@ cert.key
 3.2-crud/.prettierrc
 3.2-crud/pyproject.toml
 3.2-crud/stocks_products/pytest.ini
+3.3-permissions/pyproject.toml
+3.3-permissions/.flake8
+3.3-permissions/.prettierrc
