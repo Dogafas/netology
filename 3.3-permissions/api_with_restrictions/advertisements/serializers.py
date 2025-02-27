@@ -45,7 +45,6 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
 
-        # TODO: добавьте требуемую валидацию
         # валидация статуса
         if "status" in data and data["status"] not in dict(
             AdvertisementStatusChoices.choices
@@ -55,5 +54,16 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         # валидация заголовка
         if "title" in data and len(data["title"]) < 2:
             raise ValidationError("Заголовок должен быть не менее 2 символов")
+
+        # Валидация лимита открытых объявлений
+        if "status" in data and data["status"] == AdvertisementStatusChoices.OPEN:
+            user = self.context["request"].user
+            open_ads_count = Advertisement.objects.filter(
+                creator=user, status=AdvertisementStatusChoices.OPEN
+            ).count()
+            if open_ads_count >= 10:
+                raise ValidationError(
+                    "У вас уже максимум (10) открытых объявлений. Закройте некоторые перед созданием новых."
+                )
 
         return data
