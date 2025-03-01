@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.forms import ValidationError
 from rest_framework import serializers
-
 from advertisements.models import Advertisement, AdvertisementStatusChoices
 
 
@@ -44,7 +43,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
-
+        user = self.context["request"].user
         # валидация статуса
         if "status" in data and data["status"] not in dict(
             AdvertisementStatusChoices.choices
@@ -56,14 +55,14 @@ class AdvertisementSerializer(serializers.ModelSerializer):
             raise ValidationError("Заголовок должен быть не менее 2 символов")
 
         # Валидация лимита открытых объявлений
-        if "status" in data and data["status"] == AdvertisementStatusChoices.OPEN:
-            user = self.context["request"].user
-            open_ads_count = Advertisement.objects.filter(
-                creator=user, status=AdvertisementStatusChoices.OPEN
-            ).count()
-            if open_ads_count >= 10:
-                raise ValidationError(
-                    "У вас уже максимум (10) открытых объявлений. Закройте некоторые перед созданием новых."
-                )
+        if not user.is_staff:
+            if "status" in data and data["status"] == AdvertisementStatusChoices.OPEN:
+                open_ads_count = Advertisement.objects.filter(
+                    creator=user, status=AdvertisementStatusChoices.OPEN
+                ).count()
+                if open_ads_count >= 10:
+                    raise ValidationError(
+                        "У вас уже максимум (10) открытых объявлений. Закройте некоторые перед созданием новых."
+                    )
 
         return data

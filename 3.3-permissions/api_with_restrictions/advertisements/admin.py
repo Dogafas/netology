@@ -6,6 +6,9 @@ from advertisements.models import Advertisement
 class AdvertisementAdmin(admin.ModelAdmin):
     """Настройка отображения модели Advertisement в админ-панели."""
 
+    # Количество записей на странице
+    list_per_page = 20
+
     # Поля, отображаемые в списке
     list_display = ("id", "title", "creator", "status", "created_at", "updated_at")
 

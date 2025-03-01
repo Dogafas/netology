@@ -163,3 +163,4 @@ cert.key
 3.3-permissions/.flake8
 3.3-permissions/.prettierrc
 3.3-permissions/.vscode/settings.json
+3.3-permissions/.vscode/launch.json
