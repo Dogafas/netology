@@ -28,5 +28,4 @@ class AdvertisementViewSet(ModelViewSet):
 
     def get_queryset(self):
         """Фильтрация кверисета по умолчанию (опционально)."""
-        print(f"Query params: {self.request.query_params}")
         return Advertisement.objects.all()
