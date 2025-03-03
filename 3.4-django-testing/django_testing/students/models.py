@@ -9,6 +9,13 @@ class Student(models.Model):
         null=True,
     )
 
+    class Meta:
+        verbose_name = "Студент"
+        verbose_name_plural = "Студенты"
+
+    def __str__(self):
+        return self.name
+
 
 class Course(models.Model):
 
@@ -18,3 +25,10 @@ class Course(models.Model):
         Student,
         blank=True,
     )
+
+    class Meta:
+        verbose_name = "Курс"
+        verbose_name_plural = "Курсы"
+
+    def __str__(self):
+        return self.name
