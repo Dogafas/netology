@@ -167,3 +167,4 @@ cert.key
 3.4-django-testing/.flake8
 3.4-django-testing/.prettierrc
 3.4-django-testing/pyproject.toml
+3.4-django-testing/.vscode/settings.json
