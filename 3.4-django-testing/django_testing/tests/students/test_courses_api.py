@@ -23,20 +23,22 @@ def test_get_courses_list(api_client, courses_factory):
     assert response.status_code == status.HTTP_200_OK
     response_data = response.json()
     assert len(response_data) == 2
-    assert response_data[0]["name"] == "первый курс"
-    assert response_data[1]["name"] == "второй курс"
+    # assert response_data[0]["name"] == "первый курс"
+    # assert response_data[1]["name"] == "второй курс"
+    assert response_data[1]["name"] == courses[1].name
+    assert response_data[0]["name"] == courses[0].name
 
 
 @pytest.mark.django_db
 def test_filter_courses_by_id(api_client, courses_factory):
     courses = courses_factory(names=["первый курс", "второй курс"])
-    course1 = courses[0]
+    course1 = courses[1]
     url = reverse("courses-list")
     response = api_client.get(url, data={"id": course1.id})
     assert response.status_code == status.HTTP_200_OK
     response_data = response.json()
     assert len(response_data) == 1
-    assert response_data[0]["name"] == "первый курс"
+    assert response_data[0]["name"] == "второй курс"
 
 
 @pytest.mark.django_db
@@ -47,7 +49,8 @@ def test_filter_courses_by_name(api_client, courses_factory):
     assert response.status_code == status.HTTP_200_OK
     response_data = response.json()
     assert len(response_data) == 1
-    assert response_data[0]["name"] == "первый курс"
+    # assert response_data[0]["name"] == "первый курс"
+    assert response_data[0]["name"] == courses[0].name
 
 
 @pytest.mark.django_db
