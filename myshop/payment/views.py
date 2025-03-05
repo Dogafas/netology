@@ -40,6 +40,14 @@ def payment_process(request):
                     "quantity": item.quantity,
                 }
             )
+        # Добавление купона в платеж stripe
+        if order.coupon:
+            stripe_coupon = stripe.Coupon.create(
+                name=order.coupon.code,
+                percent_off=order.discount,
+                duration="once",
+            )
+            session_data["discounts"] = [{"coupon": stripe_coupon.id}]
         # Выход из сессии Stripe
         session = stripe.checkout.Session.create(**session_data)
         # Перенаправление на страницу оплаты Stripe

@@ -6,7 +6,7 @@ tmp/
 
 # Игнорировать файлы конфигурации среды
 .env
-
+.vscode/
 .DS_Store
 data/
 .env
@@ -152,4 +152,6 @@ cert.key
 .flake8
 .prettierrc
 pyproject.toml
+shop-diplom.txt
+shop-diplom.txt
 shop-diplom.txt

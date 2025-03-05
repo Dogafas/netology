@@ -33,7 +33,7 @@
     <td>Subtotal</td>
     <td colspan="3"></td>
     <td class="num">
-      ${{ order.get_total_cost_before_discount|floatformat:2 }}
+      {{ order.get_total_cost_before_discount|floatformat:2 }} ₽
     </td>
   </tr>
   <tr>
@@ -43,7 +43,7 @@
     </td>
     <td colspan="3"></td>
     <td class="num neg">
-      - ${{ order.get_discount|floatformat:2 }}
+      - {{ order.get_discount|floatformat:2 }} ₽
     </td>
   </tr>
  {% endif %}
