@@ -5,19 +5,20 @@ from phonenumbers import parse, is_valid_number, NumberParseException
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from coupons.models import Coupon
+from django.utils.translation import gettext_lazy as _
 
 
 class Order(models.Model):
     """информация о заказе и связанных с ним данных"""
 
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    middle_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=15, blank=True)
-    email = models.EmailField()
-    address = models.CharField(max_length=250)
-    postal_code = models.CharField(max_length=20)
-    city = models.CharField(max_length=100)
+    first_name = models.CharField(_("first name"), max_length=50)
+    last_name = models.CharField(_("last name"), max_length=50)
+    middle_name = models.CharField(_("middle name"), max_length=50)
+    phone = models.CharField(_("phone"), max_length=15, blank=True)
+    email = models.EmailField(_("email"))
+    address = models.CharField(_("address"), max_length=250)
+    postal_code = models.CharField(_("postal code"), max_length=20)
+    city = models.CharField(_("city"), max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
