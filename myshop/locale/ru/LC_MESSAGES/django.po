@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-08 22:36+0700\n"
+"POT-Creation-Date: 2025-03-14 00:00+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\cart\forms.py:9
+msgid "Quantity"
+msgstr ""
+
+#: .\coupons\forms.py:6
+msgid "Coupon"
+msgstr ""
+
 #: .\myshop\settings.py:136
 msgid "English"
 msgstr "Английский"
@@ -26,3 +35,45 @@ msgstr "Английский"
 #: .\myshop\settings.py:137
 msgid "Russian"
 msgstr "Русский"
+
+#: .\shop\templates\shop\base.html:6
+msgid "My shop"
+msgstr ""
+
+#: .\shop\templates\shop\base.html:13
+msgid "AUTOPARTS ONLINE-SHOP"
+msgstr "АВТОЗАПЧАСТИ Онлайн-магазин"
+
+#: .\shop\templates\shop\base.html:19
+#, fuzzy
+#| msgid "Your cart is empty."
+msgid "Your cart"
+msgstr "Ваша корзина пуста"
+
+#: .\shop\templates\shop\base.html:21
+#, python-format
+msgid ""
+"\n"
+"              %(items)s item, %(total)s ₽\n"
+"              "
+msgid_plural ""
+"\n"
+"              %(items)s items, %(total)s ₽\n"
+"              "
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\shop\templates\shop\base.html:28
+msgid "Your cart is empty."
+
+msgstr "Ваша корзина пуста."
+
+#: .\shop\templates\shop\product\detail.html:30
+msgid "Add to cart"
+msgstr "Добавить в корзину"
+
+#: .\shop\templates\shop\product\detail.html:36
+msgid "People who bought this also bought"
+msgstr "С этим товаром также покупают"
