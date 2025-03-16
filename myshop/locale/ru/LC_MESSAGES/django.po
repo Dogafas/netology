@@ -8,66 +8,110 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 00:00+0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2025-03-16 20:23+0700\n"
+"PO-Revision-Date: 2025-03-16 20:31+0000\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: .\cart\forms.py:9
 msgid "Quantity"
-msgstr ""
+msgstr "Количество"
 
 #: .\coupons\forms.py:6
 msgid "Coupon"
-msgstr ""
+msgstr "Купон "
 
-#: .\myshop\settings.py:136
+#: .\myshop\settings.py:137
 msgid "English"
 msgstr "Английский"
 
-#: .\myshop\settings.py:137
+#: .\myshop\settings.py:138
 msgid "Russian"
 msgstr "Русский"
 
+#: .\myshop\urls.py:28
+msgid "cart/"
+msgstr "корзина/"
+
+#: .\myshop\urls.py:29
+msgid "orders/"
+msgstr "заказы/"
+
+#: .\myshop\urls.py:30
+msgid "payment/"
+msgstr "платеж/"
+
+#: .\myshop\urls.py:31
+msgid "coupons/"
+msgstr "купоны/"
+
+#: .\payment\urls.py:8
+msgid "process/"
+msgstr "процесс/"
+
+#: .\payment\urls.py:9
+msgid "completed/"
+msgstr "завершен/"
+
+#: .\payment\urls.py:10
+msgid "canceled/"
+msgstr "отменен/"
+
 #: .\shop\templates\shop\base.html:6
 msgid "My shop"
-msgstr ""
+msgstr "Мой магазин"
 
-#: .\shop\templates\shop\base.html:13
+#: .\shop\templates\shop\base.html:12
 msgid "AUTOPARTS ONLINE-SHOP"
 msgstr "АВТОЗАПЧАСТИ Онлайн-магазин"
 
-#: .\shop\templates\shop\base.html:19
-#, fuzzy
-#| msgid "Your cart is empty."
-msgid "Your cart"
-msgstr "Ваша корзина пуста"
+#: .\shop\templates\shop\base.html:17
+msgid "language"
+msgstr "Язык"
 
-#: .\shop\templates\shop\base.html:21
+#: .\shop\templates\shop\base.html:33
+msgid "Your cart"
+msgstr "Корзина"
+
+#: .\shop\templates\shop\base.html:35
 #, python-format
+#| msgid ""
+#| "\n"
+#| "              %(items)s item, %(total)s ₽\n"
+#| "              "
+#| msgid_plural ""
+#| "\n"
+#| "              %(items)s items, %(total)s ₽\n"
+#| "              "
 msgid ""
 "\n"
 "              %(items)s item, %(total)s ₽\n"
-"              "
+"            "
 msgid_plural ""
 "\n"
 "              %(items)s items, %(total)s ₽\n"
-"              "
+"            "
 msgstr[0] ""
+"\n"
+"%(items)s товар, %(total)s "
 msgstr[1] ""
+"\n"
+"%(items)s товара, %(total)s ₽"
 msgstr[2] ""
+"\n"
+"%(items)s товаров, %(total)s ₽"
 msgstr[3] ""
+"\n"
+"%(items)s товара, %(total)s ₽"
 
-#: .\shop\templates\shop\base.html:28
+#: .\shop\templates\shop\base.html:42
 msgid "Your cart is empty."
-
 msgstr "Ваша корзина пуста."
 
 #: .\shop\templates\shop\product\detail.html:30

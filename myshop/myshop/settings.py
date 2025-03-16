@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "shop.apps.ShopConfig",
     "debug_toolbar",
     "coupons.apps.CouponsConfig",
+    "rosetta",
 ]
 
 MIDDLEWARE = [

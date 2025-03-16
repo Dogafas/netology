@@ -8,65 +8,110 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 00:00+0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2025-03-16 20:23+0700\n"
+"PO-Revision-Date: 2025-03-16 20:30+0000\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: .\cart\forms.py:9
 msgid "Quantity"
-msgstr ""
+msgstr "Quantity"
 
 #: .\coupons\forms.py:6
 msgid "Coupon"
-msgstr ""
-
-#: .\myshop\settings.py:136
-msgid "English"
-msgstr "Английский"
+msgstr "Coupon"
 
 #: .\myshop\settings.py:137
+msgid "English"
+msgstr "English"
+
+#: .\myshop\settings.py:138
 msgid "Russian"
-msgstr "Русский"
+msgstr "Russian"
+
+#: .\myshop\urls.py:28
+msgid "cart/"
+msgstr "cart/"
+
+#: .\myshop\urls.py:29
+msgid "orders/"
+msgstr "orders/"
+
+#: .\myshop\urls.py:30
+msgid "payment/"
+msgstr "payment/"
+
+#: .\myshop\urls.py:31
+msgid "coupons/"
+msgstr "coupons/"
+
+#: .\payment\urls.py:8
+msgid "process/"
+msgstr "process/"
+
+#: .\payment\urls.py:9
+msgid "completed/"
+msgstr "completed/"
+
+#: .\payment\urls.py:10
+msgid "canceled/"
+msgstr "canceled/"
 
 #: .\shop\templates\shop\base.html:6
 msgid "My shop"
-msgstr ""
+msgstr "My shop"
 
-#: .\shop\templates\shop\base.html:13
+#: .\shop\templates\shop\base.html:12
 msgid "AUTOPARTS ONLINE-SHOP"
+msgstr "AUTOPARTS ONLINE-SHOP"
+
+#: .\shop\templates\shop\base.html:17
+msgid "language"
 msgstr ""
 
-#: .\shop\templates\shop\base.html:19
+#: .\shop\templates\shop\base.html:33
 msgid "Your cart"
-msgstr ""
+msgstr "Your cart"
 
-#: .\shop\templates\shop\base.html:21
+#: .\shop\templates\shop\base.html:35
 #, python-format
+#| msgid ""
+#| "\n"
+#| "              %(items)s item, %(total)s ₽\n"
+#| "              "
+#| msgid_plural ""
+#| "\n"
+#| "              %(items)s items, %(total)s ₽\n"
+#| "              "
 msgid ""
 "\n"
 "              %(items)s item, %(total)s ₽\n"
-"              "
+"            "
 msgid_plural ""
 "\n"
 "              %(items)s items, %(total)s ₽\n"
-"              "
+"            "
 msgstr[0] ""
+"\n"
+"%(items)s item, %(total)s ₽"
 msgstr[1] ""
+"\n"
+"%(items)s items, %(total)s ₽"
 
-#: .\shop\templates\shop\base.html:28
+#: .\shop\templates\shop\base.html:42
 msgid "Your cart is empty."
-msgstr ""
+msgstr "Your cart is empty."
 
 #: .\shop\templates\shop\product\detail.html:30
 msgid "Add to cart"
-msgstr ""
+msgstr "Add to cart"
 
 #: .\shop\templates\shop\product\detail.html:36
 msgid "People who bought this also bought"
-msgstr ""
+msgstr "People who bought this also bought"
