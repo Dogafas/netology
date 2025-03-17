@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "coupons.apps.CouponsConfig",
     "rosetta",
+    "parler",
 ]
 
 MIDDLEWARE = [
@@ -196,3 +197,19 @@ INTERNAL_IPS = [
 REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
 REDIS_DB = os.environ.get("REDIS_DB")
+
+# настройки parler
+PARLER_LANGUAGES = {
+    None: (
+        {
+            "code": "en",
+        },
+        {
+            "code": "ru",
+        },
+    ),
+    "default": {
+        "fallbacks": "ru",
+        "hide_untranslated": False,
+    },
+}
