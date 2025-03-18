@@ -4,12 +4,14 @@ from celery import shared_task
 from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.utils.translation import activate
 from orders.models import Order
 
 
 @shared_task
 def payment_completed(order_id):
     order = Order.objects.get(id=order_id)
+    activate("ru")
     subject = f"Order nr. {order.id}"
     message = (
         f"Dear {order.first_name},\n\n"
