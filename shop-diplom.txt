@@ -1,3 +1,5 @@
+cd "D:\НЕТОЛОГИЯ(не для ГИТ)\shop-diplom"
+
 .\env\myshop\Scripts\activate; cd myshop
 
 celery -A myshop worker --loglevel=info --pool=solo

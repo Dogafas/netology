@@ -141,6 +141,7 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "orders", "locale"),
     os.path.join(BASE_DIR, "locale"),
 ]
 

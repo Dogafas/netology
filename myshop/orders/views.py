@@ -6,6 +6,7 @@ from .models import OrderItem, Order
 from .tasks import order_created
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.utils.translation import activate
 import weasyprint
 from django.contrib.staticfiles import finders
 
@@ -13,6 +14,7 @@ from django.contrib.staticfiles import finders
 @staff_member_required  # < - ограничивает доступ к функции только для сотрудников (администраторов)
 def admin_order_pdf(request, order_id):
     order = get_object_or_404(Order, id=order_id)
+    activate("ru")
     html = render_to_string("orders/order/pdf.html", {"order": order})
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = f"filename=order_{order.id}.pdf"
