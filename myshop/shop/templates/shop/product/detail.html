@@ -4,92 +4,87 @@
 {% block title %}
   {{ product.name }}
 {% endblock %}
-{% block content %}
 
-<div class="product-detail">
-  <img src="{% if product.image %}{{ product.image.url }}{% else %}
-  {% static "img/no_image.png" %}{% endif %}">
-   <div class="title-container">
-       <h1>{{ product.name }}</h1>
+{% block content %}
+  <div class="product-detail">
+    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{ product.name }}">
+    <div class="title-container">
+      <h1>{{ product.name }}</h1>
       <h2>
-          <a href="{{ product.category.get_absolute_url }}">
-            {{ product.category }}
-          </a>
+        <a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a>
       </h2>
-   </div>
-  <div class="price-form-container">
-      <p class="price"> {{ product.price }} ₽</p>
-      <form action="{% url "cart:cart_add" product.id %}" method="post" class="cart-form">  
-        <div class="quantity-controls">  
-           <button type="button" class="quantity-btn minus-btn">-</button>  
-          <input type="number" name="quantity" value="1" min="1" class="quantity-input" readonly>  
-           <button type="button" class="quantity-btn plus-btn">+</button>  
-        </div>  
+    </div>
+    <div class="price-form-container">
+      <p class="price">{{ product.price }} ₽</p>
+      <form action="{% url "cart:cart_add" product.id %}" method="post" class="cart-form">
+        <div class="quantity-controls">
+          <button type="button" class="quantity-btn minus-btn">-</button>
+          <input type="number" name="quantity" value="1" min="1" class="quantity-input" readonly>
+          <button type="button" class="quantity-btn plus-btn">+</button>
+        </div>
         {% csrf_token %}
-          <input type="hidden" name="override" value="False">  
-          <input type="submit" value="{% translate "Add to cart" %}" class="add-to-cart-btn"> 
+        <input type="hidden" name="override" value="False">
+        <input type="submit" value="{% translate "Add to cart" %}" class="add-to-cart-btn">
       </form>
-  </div>
-  <div class="description"> {{ product.description|linebreaks }}</div>
-  {% if recommended_products %}
-  <div class="recommendations">
-    <h3>>{% translate "People who bought this also bought" %}</h3>
-    {% for p in recommended_products %}
-      <div class="item">
-        <a href="{{ p.get_absolute_url }}">
-          <img src="{% if p.image %}{{ p.image.url }}{% else %}
-          {% static  "img/no_image.png" %}{% endif %}">
-        </a>
-        <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
+    </div>
+    <div class="description">{{ product.description|linebreaks }}</div>
+    {% if recommended_products %}
+      <div class="recommendations">
+        <h3>{% translate "People who bought this also bought" %}</h3>
+        {% for p in recommended_products %}
+          <div class="item">
+            <a href="{{ p.get_absolute_url }}">
+              <img src="{% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{ p.name }}">
+            </a>
+            <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+    {% endif %}
   </div>
- {% endif %}
-</div>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const quantityInput = document.querySelector('.quantity-input');
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const quantityInput = document.querySelector('.quantity-input');
       const minusBtn = document.querySelector('.minus-btn');
       const plusBtn = document.querySelector('.plus-btn');
       const cartForm = document.querySelector('.cart-form');
 
+      minusBtn.addEventListener('click', function () {
+        let currentValue = parseInt(quantityInput.value, 10);
+        if (currentValue > 1) {
+          quantityInput.value = currentValue - 1;
+        }
+      });
 
-     minusBtn.addEventListener('click', function () {
-          let currentValue = parseInt(quantityInput.value, 10);
-          if (currentValue > 1) {
-              quantityInput.value = currentValue - 1;
+      plusBtn.addEventListener('click', function () {
+        let currentValue = parseInt(quantityInput.value, 10);
+        quantityInput.value = currentValue + 1;
+      });
+
+      cartForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(cartForm);
+        const url = cartForm.action;
+
+        fetch(url, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRFToken': formData.get('csrfmiddlewaretoken')
           }
+        })
+          .then(response => {
+            if (response.ok) {
+              window.location.href = "{% url 'cart:cart_detail' %}";
+            } else {
+              console.error('Error adding to cart');
+            }
+          })
+          .catch(error => {
+            console.error('Fetch error:', error);
+          });
       });
-
-    plusBtn.addEventListener('click', function () {
-          let currentValue = parseInt(quantityInput.value, 10);
-          quantityInput.value = currentValue + 1;
-      });
-
-   cartForm.addEventListener('submit', function(event){ 
-     event.preventDefault(); 
-     const formData = new FormData(cartForm);  
-     const url = cartForm.action;
-
-    fetch(url, {  
-         method: 'POST', 
-        body: formData, 
-        headers: {    
-            'X-CSRFToken': formData.get('csrfmiddlewaretoken')  
-         }  
-   }) 
-         .then(response => {  
-            if (response.ok) { 
-                window.location.href = "{% url 'cart:cart_detail' %}"; 
-              } else {    
-               console.error('Error adding to cart'); 
-             } 
-          }) 
-         .catch(error => {  
-              console.error('Fetch error:', error);  
-          }); 
-      }); 
-  });
-</script>
-  
+    });
+  </script>
 {% endblock %}
