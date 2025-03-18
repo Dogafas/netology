@@ -3,35 +3,103 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 20:23+0700\n"
+"POT-Creation-Date: 2025-03-18 12:57+0700\n"
 "PO-Revision-Date: 2025-03-16 20:31+0000\n"
-"Last-Translator:   <>\n"
+"Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: .\cart\forms.py:9
+#: .\cart\forms.py:9 .\cart\templates\cart\detail.html:20
 msgid "Quantity"
 msgstr "Количество"
 
+#: .\cart\templates\cart\detail.html:6 .\cart\templates\cart\detail.html:11
+msgid "Your shopping cart"
+msgstr "Ваша корзина"
+
+#: .\cart\templates\cart\detail.html:18
+msgid "Image"
+msgstr "Изображение"
+
+#: .\cart\templates\cart\detail.html:19
+msgid "Product"
+msgstr "Товар"
+
+#: .\cart\templates\cart\detail.html:21 .\cart\templates\cart\detail.html:51
+msgid "Remove"
+msgstr "Удалить"
+
+#: .\cart\templates\cart\detail.html:22
+msgid "Unit price"
+msgstr "Цена за единицу"
+
+#: .\cart\templates\cart\detail.html:23
+msgid "Price"
+msgstr "Цена"
+
+#: .\cart\templates\cart\detail.html:45
+msgid "Update"
+msgstr "Обновить"
+
+#: .\cart\templates\cart\detail.html:62
+msgid "Subtotal"
+msgstr "Промежуточный итог"
+
+#: .\cart\templates\cart\detail.html:68
+#, python-format
+msgid ""
+"\n"
+"                \"%(code)s\" coupon (%(discount)s%% off)\n"
+"              "
+msgstr ""
+"\n"
+"                Купон \"%(code)s\" (скидка %(discount)s%%)\n"
+"              "
+
+#: .\cart\templates\cart\detail.html:79
+msgid "Total"
+msgstr "Итого"
+
+#: .\cart\templates\cart\detail.html:87
+msgid "Frequently bought with this product"
+msgstr "Часто покупают с этим продуктом"
+
+#: .\cart\templates\cart\detail.html:99
+msgid "Apply a coupon:"
+msgstr "Применить купон:"
+
+#: .\cart\templates\cart\detail.html:102
+msgid "Apply"
+msgstr "Применить"
+
+#: .\cart\templates\cart\detail.html:108
+msgid "Continue shopping"
+msgstr "Продолжить покупки"
+
+#: .\cart\templates\cart\detail.html:109
+msgid "Checkout"
+msgstr "Оформить заказ"
+
 #: .\coupons\forms.py:6
 msgid "Coupon"
-msgstr "Купон "
+msgstr "Купон"
 
-#: .\myshop\settings.py:137
+#: .\myshop\settings.py:139
 msgid "English"
 msgstr "Английский"
 
-#: .\myshop\settings.py:138
+#: .\myshop\settings.py:140
 msgid "Russian"
 msgstr "Русский"
 
@@ -77,18 +145,10 @@ msgstr "Язык"
 
 #: .\shop\templates\shop\base.html:33
 msgid "Your cart"
-msgstr "Корзина"
+msgstr "Ваша корзина"
 
 #: .\shop\templates\shop\base.html:35
 #, python-format
-#| msgid ""
-#| "\n"
-#| "              %(items)s item, %(total)s ₽\n"
-#| "              "
-#| msgid_plural ""
-#| "\n"
-#| "              %(items)s items, %(total)s ₽\n"
-#| "              "
 msgid ""
 "\n"
 "              %(items)s item, %(total)s ₽\n"
@@ -99,16 +159,20 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"%(items)s товар, %(total)s "
+"              %(items)s товар, %(total)s ₽\n"
+"            "
 msgstr[1] ""
 "\n"
-"%(items)s товара, %(total)s ₽"
+"              %(items)s товара, %(total)s ₽\n"
+"            "
 msgstr[2] ""
 "\n"
-"%(items)s товаров, %(total)s ₽"
+"              %(items)s товаров, %(total)s ₽\n"
+"            "
 msgstr[3] ""
 "\n"
-"%(items)s товара, %(total)s ₽"
+"              %(items)s товаров, %(total)s ₽\n"
+"            "
 
 #: .\shop\templates\shop\base.html:42
 msgid "Your cart is empty."
