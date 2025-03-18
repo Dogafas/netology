@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-18 14:48+0700\n"
+"POT-Creation-Date: 2025-03-18 15:30+0700\n"
 "PO-Revision-Date: 2025-03-18 14:48+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -61,7 +61,6 @@ msgid "Subtotal"
 msgstr "Промежуточный итог"
 
 #: .\cart\templates\cart\detail.html:68
-#: .\payment\templates\payment\process.html:44
 #, python-format
 msgid ""
 "\n"
@@ -126,6 +125,18 @@ msgstr "платеж/"
 msgid "coupons/"
 msgstr "купоны/"
 
+#: .\payment\templates\payment\completed.html:5
+msgid "Payment successful"
+msgstr "Оплата успешно завершена"
+
+#: .\payment\templates\payment\completed.html:9
+msgid "Your payment was successful"
+msgstr "Ваш платеж успешно выполнен"
+
+#: .\payment\templates\payment\completed.html:10
+msgid "Your payment has been processed successfully."
+msgstr "Ваш платеж успешно обработан."
+
 #: .\payment\templates\payment\process.html:6
 msgid "Pay your order"
 msgstr "Оплатить ваш заказ"
@@ -133,6 +144,21 @@ msgstr "Оплатить ваш заказ"
 #: .\payment\templates\payment\process.html:10
 msgid "Order summary"
 msgstr "Сводка заказа"
+
+#: .\payment\templates\payment\process.html:44
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                \"%(code)s\" coupon (%(discount)s%% off)\n"
+#| "              "
+msgid ""
+"\n"
+"              \"%(code)s\" coupon (%(discount)s%% off)\n"
+"            "
+msgstr ""
+"\n"
+"                Купон \"%(code)s\" (скидка %(discount)s%%)\n"
+"              "
 
 #: .\payment\templates\payment\process.html:61
 msgid "Pay now"
