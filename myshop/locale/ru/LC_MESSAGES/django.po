@@ -189,7 +189,6 @@ msgid "canceled/"
 msgstr "отменен/"
 
 #: .\shop\templates\shop\base.html:6
-#, fuzzy
 #| msgid "AUTOPARTS ONLINE-SHOP"
 msgid "AUTOPARTS ONLINE SHOP"
 msgstr "АВТОЗАПЧАСТИ ИНТЕРНЕТ МАГАЗИН"
