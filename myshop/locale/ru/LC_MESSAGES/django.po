@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-19 00:16+0700\n"
+"POT-Creation-Date: 2025-03-19 18:16+0700\n"
 "PO-Revision-Date: 2025-03-18 21:32+0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -189,12 +189,14 @@ msgid "canceled/"
 msgstr "отменен/"
 
 #: .\shop\templates\shop\base.html:6
-msgid "My shop"
-msgstr "Мой магазин"
+#, fuzzy
+#| msgid "AUTOPARTS ONLINE-SHOP"
+msgid "AUTOPARTS ONLINE SHOP"
+msgstr "АВТОЗАПЧАСТИ ИНТЕРНЕТ МАГАЗИН"
 
 #: .\shop\templates\shop\base.html:12
 msgid "AUTOPARTS ONLINE-SHOP"
-msgstr "АВТОЗАПЧАСТИ Онлайн-магазин"
+msgstr "АВТОЗАПЧАСТИ ОНЛАЙН-МАГАЗИН"
 
 #: .\shop\templates\shop\base.html:17
 msgid "language"
@@ -277,3 +279,4 @@ msgstr ""
 #: .\shop\templates\shop\product\list.html:49
 msgid "Next"
 msgstr "Следующая"
+
