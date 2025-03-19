@@ -137,6 +137,18 @@ msgstr "Ваш платеж не был обработан"
 msgid "There was a problem processing your payment."
 msgstr "Возникла проблема при обработке вашего платежа."
 
+#: .\payment\templates\payment\canceled.html:5
+msgid "Payment canceled"
+msgstr "Оплата отменена"
+
+#: .\payment\templates\payment\canceled.html:9
+msgid "Your payment has not been processed"
+msgstr "Ваш платеж не был обработан"
+
+#: .\payment\templates\payment\canceled.html:10
+msgid "There was a problem processing your payment."
+msgstr "Возникла проблема при обработке вашего платежа."
+
 #: .\payment\templates\payment\completed.html:5
 msgid "Payment successful"
 msgstr "Оплата успешно завершена"
