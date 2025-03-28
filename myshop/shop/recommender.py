@@ -5,7 +5,10 @@ from .models import Product
 # Соединение с Redis с обработкой ошибок
 try:
     r = redis.Redis(
-        host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB
+        host=settings.REDIS_HOST,
+        port=settings.REDIS_PORT,
+        db=settings.REDIS_DB,
+        password=settings.REDIS_PASSWORD,
     )
 except redis.ConnectionError as e:
     raise Exception(f"Не удалось подключиться к Redis: {e}")
