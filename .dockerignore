@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Python virtual environment
+env/
+venv/
+*.pyc
+__pycache__/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor files
+.vscode/
+.idea/
+
+# Environment files
+.env
+*.env
+
+# Media files (не должны быть в образе, они в volume)
+myshop/media/
+mediafiles/ # Если создавали локально
+
+# Static files (будут собраны в volume)
+myshop/static/ # Статика приложений Django
+staticfiles/ # Куда собирает collectstatic локально
+
+# Other logs/temporary files
+*.log
