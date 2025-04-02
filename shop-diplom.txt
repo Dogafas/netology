@@ -1,3 +1,5 @@
+cd "/mnt/d/НЕТОЛОГИЯ(не для ГИТ)/shop-diplom"
+
 cd "D:\НЕТОЛОГИЯ(не для ГИТ)\shop-diplom"
 
 .\env\myshop\Scripts\activate; cd myshop
