@@ -62,14 +62,8 @@ msgstr "Промежуточный итог"
 
 #: .\cart\templates\cart\detail.html:68
 #, python-format
-msgid ""
-"\n"
-"                \"%(code)s\" coupon (%(discount)s%% off)\n"
-"              "
-msgstr ""
-"\n"
-"                Купон \"%(code)s\" (скидка %(discount)s%%)\n"
-"              "
+msgid "\"%(code)s\" coupon (%(discount)s%% off)"
+msgstr "Купон \"%(code)s\" (скидка %(discount)s%%)"
 
 #: .\cart\templates\cart\detail.html:79
 #: .\payment\templates\payment\process.html:18
@@ -79,7 +73,7 @@ msgstr "Итого"
 
 #: .\cart\templates\cart\detail.html:87
 msgid "Frequently bought with this product"
-msgstr "Часто покупают с этим продуктом"
+msgstr "Часто покупают с этим товаром"
 
 #: .\cart\templates\cart\detail.html:99
 msgid "Apply a coupon:"
@@ -108,34 +102,6 @@ msgstr "Английский"
 #: .\myshop\settings.py:140
 msgid "Russian"
 msgstr "Русский"
-
-#: .\myshop\urls.py:28
-msgid "cart/"
-msgstr "корзина/"
-
-#: .\myshop\urls.py:29
-msgid "orders/"
-msgstr "заказы/"
-
-#: .\myshop\urls.py:30
-msgid "payment/"
-msgstr "платеж/"
-
-#: .\myshop\urls.py:31
-msgid "coupons/"
-msgstr "купоны/"
-
-#: .\payment\templates\payment\canceled.html:5
-msgid "Payment canceled"
-msgstr "Оплата отменена"
-
-#: .\payment\templates\payment\canceled.html:9
-msgid "Your payment has not been processed"
-msgstr "Ваш платеж не был обработан"
-
-#: .\payment\templates\payment\canceled.html:10
-msgid "There was a problem processing your payment."
-msgstr "Возникла проблема при обработке вашего платежа."
 
 #: .\payment\templates\payment\canceled.html:5
 msgid "Payment canceled"
@@ -169,41 +135,13 @@ msgstr "Оплатить ваш заказ"
 msgid "Order summary"
 msgstr "Сводка заказа"
 
-#: .\payment\templates\payment\process.html:44
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "                \"%(code)s\" coupon (%(discount)s%% off)\n"
-#| "              "
-msgid ""
-"\n"
-"              \"%(code)s\" coupon (%(discount)s%% off)\n"
-"            "
-msgstr ""
-"\n"
-"                Купон \"%(code)s\" (скидка %(discount)s%%)\n"
-"              "
-
 #: .\payment\templates\payment\process.html:61
 msgid "Pay now"
 msgstr "Оплатить сейчас"
 
-#: .\payment\urls.py:8
-msgid "process/"
-msgstr "процесс/"
-
-#: .\payment\urls.py:9
-msgid "completed/"
-msgstr "завершен/"
-
-#: .\payment\urls.py:10
-msgid "canceled/"
-msgstr "отменен/"
-
 #: .\shop\templates\shop\base.html:6
-#| msgid "AUTOPARTS ONLINE-SHOP"
 msgid "AUTOPARTS ONLINE SHOP"
-msgstr "АВТОЗАПЧАСТИ ИНТЕРНЕТ МАГАЗИН"
+msgstr "АВТОЗАПЧАСТИ ОНЛАЙН-МАГАЗИН"
 
 #: .\shop\templates\shop\base.html:12
 msgid "AUTOPARTS ONLINE-SHOP"
@@ -219,30 +157,12 @@ msgstr "Ваша корзина"
 
 #: .\shop\templates\shop\base.html:35
 #, python-format
-msgid ""
-"\n"
-"              %(items)s item, %(total)s ₽\n"
-"            "
-msgid_plural ""
-"\n"
-"              %(items)s items, %(total)s ₽\n"
-"            "
-msgstr[0] ""
-"\n"
-"              %(items)s товар, %(total)s ₽\n"
-"            "
-msgstr[1] ""
-"\n"
-"              %(items)s товара, %(total)s ₽\n"
-"            "
-msgstr[2] ""
-"\n"
-"              %(items)s товаров, %(total)s ₽\n"
-"            "
-msgstr[3] ""
-"\n"
-"              %(items)s товаров, %(total)s ₽\n"
-"            "
+msgid "%(items)s item, %(total)s ₽"
+msgid_plural "%(items)s items, %(total)s ₽"
+msgstr[0] "%(items)s товар, %(total)s ₽"
+msgstr[1] "%(items)s товара, %(total)s ₽"
+msgstr[2] "%(items)s товаров, %(total)s ₽"
+msgstr[3] "%(items)s товаров, %(total)s ₽"
 
 #: .\shop\templates\shop\base.html:42
 msgid "Your cart is empty."
@@ -271,23 +191,3 @@ msgstr "Все"
 #: .\shop\templates\shop\product\list.html:24
 msgid "Products"
 msgstr "Товары"
-
-#: .\shop\templates\shop\product\list.html:41
-msgid "Previous"
-msgstr "Предыдущая"
-
-#: .\shop\templates\shop\product\list.html:44
-#, python-format
-msgid ""
-"\n"
-"            Page %(current_page)s of %(total_pages)s.\n"
-"          "
-msgstr ""
-"\n"
-"            Страница %(current_page)s из %(total_pages)s.\n"
-"          "
-
-#: .\shop\templates\shop\product\list.html:49
-msgid "Next"
-msgstr "Следующая"
-

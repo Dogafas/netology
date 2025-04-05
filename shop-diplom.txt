@@ -27,6 +27,15 @@ stripe listen --forward-to 127.0.0.1:8000/payment/webhook/
 
 в разделе для разработчиков (Developers -> Overwiew -> Create destination -> ) создается событие "payment_intent.succeeded"
 
+------------------------------
 
+docker-compose down -v # Флаг -v удалит и volumes, что даст чистый старт для всего
+docker builder prune -a
+docker-compose up --build --force-recreate
 
+------
+посмотреть список суперпользователей (администраторов) в Django
+docker-compose exec web python manage.py shell -c "from django.contrib.auth import get_user_model; print(list(get_user_model().objects.filter(is_superuser=True).values('username', 'email')))"
+docker-compose exec web python manage.py shell -c "from django.contrib.auth import get_user_model; print(list(get_user_model().objects.filter(is_superuser=True).values('username', 'email', 'password')))"
 
+docker exec -i postgres_db psql -U postgres -d myshop < dump-myshop-202504051853.sql

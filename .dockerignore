@@ -1,37 +1,73 @@
+```dockerignore
 # Git
 .git
 .gitignore
 
 # Docker
+.dockerignore
 Dockerfile
 docker-compose.yml
-.dockerignore
 
-# Python virtual environment
-env/
-venv/
+# IDE / Editor specific
+.vscode/
 *.pyc
 __pycache__/
+
+# Virtual environment
+_env/
+env/
+venv/
+*.env
+
+# OS specific
+.DS_Store
+
+dockerignore
+Dockerfile
+docker-compose.yml
+
+# Python virtual environment
+_env/
+env/
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE /# Static and Media files (будут управляться через volumes или collectstatic)
+# Editor files
+.vscode/
+.idea/
 
 # OS generated files
 .DS_Store
 Thumbs.db
 
-# IDE / Editor files
-.vscode/
-.idea/
+# Local settings / secrets (should be passed Если вы хотите, чтобы статика собиралась в образе, закомментируйте via environment variables)
+.env # Не копируем сам файл .env в образ, он будет подключен через docker-compose
 
-# Environment files
-.env
-*.env
+# Local static and media files (optional staticfiles
+# staticfiles/
+# media/ # Медиа точно не должны быть в образе
 
-# Media files (не должны быть в образе, они в volume)
-myshop/media/
-mediafiles/ # Если создавали локально
-
-# Static files (будут собраны в volume)
-myshop/static/ # Статика приложений Django
-staticfiles/ # Куда собирает collectstatic локально
-
-# Other logs/temporary files
+# Local development files
+*.sqlite3
 *.log
+*.pot, depending on strategy)
+# Если collectstatic будет выполняться внутри контейнера, можно раскомментировать
+# staticfiles/
+# myshop/media/ # Обычно медиа монтируется как volume, а не копируется в образ
+
+# Other
+*.log
+*.pot
+*.orig
+*.bak
+*.sw
+*.py[cod]
+
+# Sensitive info
+.env

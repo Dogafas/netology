@@ -7,8 +7,9 @@ try:
     r = redis.Redis(
         host=settings.REDIS_HOST,
         port=settings.REDIS_PORT,
-        db=settings.REDIS_DB,
+        db=settings.RECOMMENDER_REDIS_DB,
         password=settings.REDIS_PASSWORD,
+        decode_responses=True,
     )
 except redis.ConnectionError as e:
     raise Exception(f"Не удалось подключиться к Redis: {e}")

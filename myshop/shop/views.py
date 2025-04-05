@@ -71,7 +71,7 @@ def product_list(request, category_slug=None):
     category = None
     # Получаем все категории с учетом текущего языка
     categories = Category.objects.all()
-    products = Product.objects.filter(available=True)
+    products = Product.objects.filter(available=True).order_by("id")
 
     if category_slug:
         language = request.LANGUAGE_CODE
