@@ -1,35 +1,62 @@
-# Настройка БД PostgreSQL
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_HOST=
-POSTGRES_PORT=
-POSTGRES_DB=
+# .env - Файл переменных окружения для Production
 
-# Настройки RabbitMQ
-RABBITMQ_HOST=
-RABBITMQ_DEFAULT_USER=
-RABBITMQ_DEFAULT_PASS=
-RABBITMQ_BROKER_URL=
+# --- Django Core Settings ---
+DJANGO_SECRET_KEY=ВАШ_НАДЕЖНЫЙ_СЕКРЕТНЫЙ_КЛЮЧ_DJANGO # Обязательно сгенерируйте новый, длинный и случайный ключ
+DEBUG=False # Строго False для продакшена!
+ALLOWED_HOSTS=your_domain.com,www.your_domain.com,IP_АДРЕС_СЕРВЕРА # Ваш домен(ы) и IP-адрес сервера через запятую
+CSRF_TRUSTED_ORIGINS=https://your_domain.com,https://www.your_domain.com # Домены, с которых разрешены POST-запросы (включая https://)
+DJANGO_LOG_LEVEL=INFO # Уровень логирования Django (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 
-# Настройки почтового сервиса
-EMAIL_HOST_USER=
-EMAIL_HOST_PASSWORD=
-DEFAULT_FROM_EMAIL=
+# --- Database Settings (PostgreSQL) ---
+POSTGRES_USER=your_db_user
+POSTGRES_PASSWORD=your_db_password_strong # Используйте надежный пароль
+POSTGRES_DB=your_db_name
+POSTGRES_HOST=db # Имя сервиса БД в docker-compose.yml
+POSTGRES_PORT=5432 # Стандартный порт PostgreSQL
 
-# Настройка платежной системы Stripe
-STRIPE_PUBLISHABLE_KEY=
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-STRIPE_API_VERSION = 
+# --- Redis Settings ---
+REDIS_HOST=redis # Имя сервиса Redis в docker-compose.yml
+REDIS_PORT=6379
+REDIS_PASSWORD=your_redis_password # Установите пароль для Redis в docker-compose и укажите его здесь (можно оставить пустым, если пароля нет, но это не рекомендуется для продакшена)
+# Номера баз данных Redis для разных целей:
+REDIS_CACHE_DB=0 # Для кэша Django (значение по умолчанию в settings.py)
+REDIS_DB=2 # Для Celery Result Backend (значение по умолчанию в settings.py для REDIS_CELERY_DB)
+RECOMMENDER_REDIS_DB=3 # Для системы рекомендаций (значение по умолчанию в settings.py)
 
- # настройки Redis
-REDIS_HOST = 
-REDIS_PORT = 
-REDIS_DB = 
-REDIS_PASSWORD=
+# --- RabbitMQ Settings (Celery Broker) ---
+RABBITMQ_HOST=rabbitmq # Имя сервиса RabbitMQ в docker-compose.yml
+RABBITMQ_DEFAULT_USER=your_rabbitmq_user
+RABBITMQ_DEFAULT_PASS=your_rabbitmq_password_strong # Используйте надежный пароль
+# URL для подключения Celery к RabbitMQ
+RABBITMQ_BROKER_URL=amqp://your_rabbitmq_user:your_rabbitmq_password_strong@rabbitmq:5672/
 
-DEBUG =
+# --- Celery Settings ---
+CELERY_TIMEZONE=UTC # Часовой пояс для Celery (или ваш рабочий часовой пояс, например Europe/Moscow)
 
-DJANGO_SECRET_KEY=
+# --- Email Settings ---
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend # или другой бэкенд, если используете внешний сервис типа SendGrid
+EMAIL_HOST=smtp.example.com # SMTP-сервер вашего почтового провайдера (например, smtp.gmail.com, smtp.sendgrid.net)
+EMAIL_PORT=587 # Порт SMTP (обычно 587 для TLS, 465 для SSL)
+EMAIL_USE_TLS=True # Использовать TLS (рекомендуется)
+EMAIL_USE_SSL=False # Использовать SSL (обычно TLS предпочтительнее)
+EMAIL_HOST_USER=your_email@example.com # Ваш email логин
+EMAIL_HOST_PASSWORD=your_email_password_or_app_password # Ваш email пароль или пароль приложения (для Gmail)
+DEFAULT_FROM_EMAIL=your_email@example.com # Email, отображаемый как отправитель
 
-ALLOWED_HOSTS = 
+# --- Stripe Settings ---
+STRIPE_PUBLISHABLE_KEY=pk_live_ВАШ_КЛЮЧ # Ваш publishable ключ Stripe (live)
+STRIPE_SECRET_KEY=sk_live_ВАШ_СЕКРЕТНЫЙ_КЛЮЧ # Ваш секретный ключ Stripe (live)
+STRIPE_API_VERSION=2024-04-10 # Версия Stripe API (проверьте актуальную в документации)
+STRIPE_WEBHOOK_SECRET=whsec_ВАШ_СЕКРЕТ_ВЕБХУКА # Секрет для проверки вебхуков Stripe
+
+
+GUNICORN_WORKERS=3
+
+# --- Production Security Settings (опционально, т.к. в settings.py есть разумные дефолты) ---
+# Вы можете раскомментировать и изменить эти значения, если дефолты в settings.py (при DEBUG=False) вас не устраивают
+# SESSION_COOKIE_SECURE=True
+# CSRF_COOKIE_SECURE=True
+# SECURE_HSTS_SECONDS=2592000 # 30 дней. Увеличивайте осторожно!
+# SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+# SECURE_HSTS_PRELOAD=False
+# SECURE_CONTENT_TYPE_NOSNIFF=True

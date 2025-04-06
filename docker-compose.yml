@@ -1,19 +1,13 @@
-
 services:
   # --- Сервис базы данных PostgreSQL ---
   db:
-    image: postgres:17-alpine # Обновленная версия
+    image: postgres:17-alpine
     container_name: postgres_db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - "5433:5432" # Обновленный хост-порт
+    # Порты не публикуем для продакшена
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -28,15 +22,15 @@ services:
   redis:
     image: redis:7-alpine
     container_name: redis_cache
-    command: redis-server --requirepass ${REDIS_PASSWORD}
+    # Добавлены параметры сохранения (--save) и логирования (--loglevel)
+    command: redis-server --save 60 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
     env_file:
       - .env
-    ports:
-      - "6381:6379" # Обновленный хост-порт
+    # Порты не публикуем для продакшена
     volumes:
       - redis_data:/data
     healthcheck:
-      # Убедитесь, что redis-cli доступен на хосте или измените на nc, если нет
+      # Проверяем командой ping через redis-cli внутри контейнера
       test: ["CMD", "redis-cli", "-h", "localhost", "-p", "6379", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 10s
       timeout: 5s
@@ -48,16 +42,15 @@ services:
 
   # --- Сервис RabbitMQ ---
   rabbitmq:
-    image: rabbitmq:3.13-management-alpine # Обновленная версия
+    image: rabbitmq:3.13-management-alpine
     container_name: rabbitmq_broker
     env_file:
       - .env
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     ports:
-      - "5674:5672"   # Обновленный хост-порт AMQP
-      - "15674:15672" # Обновленный хост-порт Web UI
+      # Оставляем порт для Web UI (15672), если нужен доступ для администрирования.
+      # Рекомендуется ограничить доступ к этому порту на уровне фаервола сервера.
+      - "15674:15672" # Хост-порт:Внутренний-порт
+      # Порт AMQP (5672) не публикуем, используется только внутри сети Docker.
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
       interval: 10s
@@ -72,17 +65,23 @@ services:
 
   # --- Сервис веб-приложения Django (Gunicorn) ---
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile # Явно указываем Dockerfile
     container_name: django_web
-    command: web
+    command: web # Эта команда передается в entrypoint.sh
+    # Локальный код НЕ монтируем в продакшене
     volumes:
-      - ./myshop:/home/appuser/web
+      # Монтируем тома для статики и медиа, чтобы collectstatic мог писать в static_volume
       - static_volume:/home/appuser/web/staticfiles
       - media_volume:/home/appuser/web/media
     expose:
       - 8000 # Внутренний порт для Nginx
     env_file:
       - .env
+    environment:
+      # Явно устанавливаем количество Gunicorn воркеров (из .env или дефолт)
+      GUNICORN_WORKERS: ${GUNICORN_WORKERS:-4} # Пример: 4 воркера
     depends_on:
       db:
         condition: service_healthy
@@ -94,28 +93,30 @@ services:
       - mynetwork
     restart: on-failure
     healthcheck:
-       # nc должен быть установлен в образе web (мы это делали)
+       # nc должен быть установлен в образе web (он есть)
        test: ["CMD", "nc", "-z", "localhost", "8000"]
        interval: 15s
        timeout: 5s
        retries: 3
-       start_period: 30s
-    
+       start_period: 30s # Даем Gunicorn больше времени на запуск
 
   # --- Сервис Celery Worker ---
   celery_worker:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: celery_worker
-    command: celery_worker
+    command: celery_worker # Эта команда передается в entrypoint.sh
+    # Локальный код НЕ монтируем
     volumes:
-      - ./myshop:/home/appuser/web
+      # Монтируем медиа том, если воркеры работают с медиа файлами
       - media_volume:/home/appuser/web/media
     env_file:
       - .env
     depends_on:
+      # Зависим от основных сервисов и от работоспособности web (для доступа к моделям Django)
       web:
-        # Можно изменить на service_healthy, если healthcheck для web стабилен
-        condition: service_started
+        condition: service_healthy # Ждем, пока web полностью запустится и пройдет healthcheck
       redis:
         condition: service_healthy
       rabbitmq:
@@ -128,18 +129,23 @@ services:
 
   # --- Сервис Flower (Мониторинг Celery) ---
   flower:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: celery_flower
-    command: celery_flower
-    volumes:
-      - ./myshop:/home/appuser/web
+    command: celery_flower # Эта команда передается в entrypoint.sh
+    # Локальный код НЕ монтируем
+    volumes: # Flower обычно не нужны volumes
+      []
     env_file:
       - .env
     expose:
-      - 5555 # Внутренний порт для Nginx
+      # Внутренний порт Flower для Nginx (если будем проксировать)
+      # Flower по умолчанию запускается на 5555
+      - 5555
     depends_on:
-      web:
-        condition: service_started # Или service_healthy
+      web: # Зависим от web, так как Flower может использовать настройки Django
+        condition: service_healthy
       redis:
         condition: service_healthy
       rabbitmq:
@@ -148,7 +154,9 @@ services:
       - mynetwork
     restart: unless-stopped
 
-  # --- Сервис Stripe CLI для прослушивания вебхуков ---
+  # --- Сервис Stripe CLI (УДАЛЕНО для Production) ---
+  # # Этот сервис используется только для локальной разработки/тестирования вебхуков
+    # --- Сервис Stripe CLI для прослушивания вебхуков ---
   stripe-cli:
     image: stripe/stripe-cli:latest
     container_name: stripe_listener
@@ -169,14 +177,20 @@ services:
     image: nginx:1.25-alpine
     container_name: nginx_proxy
     ports:
-      - "8080:80" # Обновленный хост-порт
+      # Стандартные порты для продакшена
+      - "80:80"
+      - "443:443" # Оставляем для будущей настройки HTTPS
     volumes:
+      # Монтируем конфигурацию Nginx (только чтение)
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - static_volume:/home/appuser/web/staticfiles
-      - media_volume:/home/appuser/web/media
+      # Монтируем тома со статикой и медиа (только чтение)
+      - static_volume:/home/appuser/web/staticfiles:ro
+      - media_volume:/home/appuser/web/media:ro
+      # Добавим сюда позже тома для SSL сертификатов
+      # - ./path/to/certs:/etc/nginx/certs:ro
     depends_on:
-      - web
-      - flower
+      - web # Nginx должен запускаться после web
+      # - flower # Раскомментируйте, если будете проксировать Flower через Nginx
     networks:
       - mynetwork
     restart: always

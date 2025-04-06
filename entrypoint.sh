@@ -69,7 +69,7 @@ case "$1" in
 
         echo "Starting Gunicorn..."
         # Запускаем Gunicorn на внутреннем порту 8000
-        exec gunicorn myshop.wsgi:application --bind 0.0.0.0:8000 --workers 3 --log-level info
+        exec gunicorn myshop.wsgi:application --bind 0.0.0.0:8000 --workers $GUNICORN_WORKERS --log-level info
         ;;
 
     celery_worker)
