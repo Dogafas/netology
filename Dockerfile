@@ -3,8 +3,8 @@
 FROM python:3.12-slim-bullseye AS builder
 
 # Устанавливаем переменные окружения для Python
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Устанавливаем системные зависимости, необходимые для сборки Python-пакетов
 # build-essential: Компиляторы C/C++
@@ -39,8 +39,8 @@ RUN pip wheel --no-cache-dir --wheel-dir=/wheels -r requirements.txt
 FROM python:3.12-slim-bullseye
 
 # Устанавливаем переменные окружения для Python (повторно, т.к. это новый этап)
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Создаем пользователя и группу 'appuser' для запуска приложения
 RUN addgroup --system appuser && adduser --system --ingroup appuser appuser
