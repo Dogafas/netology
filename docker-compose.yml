@@ -157,20 +157,20 @@ services:
   # --- Сервис Stripe CLI (УДАЛЕНО для Production) ---
   # # Этот сервис используется только для локальной разработки/тестирования вебхуков
     # --- Сервис Stripe CLI для прослушивания вебхуков ---
-  # stripe-cli:
-  #   image: stripe/stripe-cli:latest
-  #   container_name: stripe_listener
-  #   # Используем подтвержденный путь /payment/webhook/
-  #   command: listen --forward-to http://web:8000/payment/webhook/ --api-key ${STRIPE_SECRET_KEY}
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     STRIPE_DEVICE_NAME: docker-compose-listener
-  #   networks:
-  #     - mynetwork
-  #   depends_on:
-  #     - web # Запускать после старта веб-сервиса
-  #   restart: unless-stopped
+  stripe-cli:
+    image: stripe/stripe-cli:latest
+    container_name: stripe_listener
+    # Используем подтвержденный путь /payment/webhook/
+    command: listen --forward-to http://web:8000/payment/webhook/ --api-key ${STRIPE_SECRET_KEY}
+    env_file:
+      - .env
+    environment:
+      STRIPE_DEVICE_NAME: docker-compose-listener
+    networks:
+      - mynetwork
+    depends_on:
+      - web # Запускать после старта веб-сервиса
+    restart: unless-stopped
 
   # --- Сервис Nginx (Веб-сервер / Прокси) ---
   nginx:

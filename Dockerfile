@@ -92,6 +92,12 @@ COPY ./myshop /home/appuser/web/
 # Также это нужно для Gunicorn, если он будет писать pid-файлы или логи в эту директорию
 RUN chown -R appuser:appuser /home/appuser/web /entrypoint.sh
 
+# <<< ДОБАВЛЕНО >>>
+# Создаем директории для статики и медиа ДО переключения пользователя
+# и устанавливаем нужного владельца ('appuser'). Это решает проблему с Permission denied при collectstatic.
+RUN mkdir -p /home/appuser/web/staticfiles /home/appuser/web/mediafiles && \
+    chown -R appuser:appuser /home/appuser/web/staticfiles /home/appuser/web/mediafiles
+
 # Переключаемся на непривилегированного пользователя
 USER appuser
 
