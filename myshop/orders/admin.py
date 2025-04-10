@@ -1,3 +1,4 @@
+# myshop\orders\admin.py
 from django.contrib import admin
 from .models import Order, OrderItem
 from django.utils.safestring import mark_safe
@@ -63,6 +64,16 @@ def order_detail(obj):
     return mark_safe(f'<a href="{url}">View</a>')
 
 
+def order_payment_method(obj):
+    payment = obj.payments.first()
+    if payment:
+        return payment.payment_method
+    return "Не указан"
+
+
+order_payment_method.short_description = "Способ оплаты"
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = [
@@ -75,6 +86,7 @@ class OrderAdmin(admin.ModelAdmin):
         "city",
         "paid",
         order_payment,
+        order_payment_method,
         "created",
         "updated",
         order_detail,

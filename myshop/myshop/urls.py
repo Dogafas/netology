@@ -1,3 +1,4 @@
+# myshop\myshop\urls.py
 """
 URL configuration for myshop project.
 
@@ -22,6 +23,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 from payment import webhooks
+from payment import views
 
 urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
@@ -36,6 +38,7 @@ urlpatterns = i18n_patterns(
 
 urlpatterns += [
     path("payment/webhook/", webhooks.stripe_webhook, name="stripe-webhook"),
+    path("payment/webhook/yookassa/", views.yookassa_webhook, name="yookassa-webhook"),
 ]
 
 if settings.DEBUG:

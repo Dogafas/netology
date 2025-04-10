@@ -1,12 +1,15 @@
 # myshop/myshop/settings.py
-
 from pathlib import Path
 from decouple import config
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dotenv_path = BASE_DIR.parent / ".env.dev"  # <-- Путь к файлу .env.dev
+# Загружаем переменные ИЗ .env.dev, ПЕРЕОПРЕДЕЛЯЯ существующие
+load_dotenv(dotenv_path=dotenv_path, override=True)
 
 # --- Core Django Settings ---
 
@@ -50,6 +53,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # SecurityMiddleware должен быть одним из первых
     "django.middleware.security.SecurityMiddleware",
+    "csp.middleware.CSPMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",  # Важно для i18n/l10n и parler
     "django.middleware.common.CommonMiddleware",
@@ -73,7 +77,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "cart.context_processors.cart",  # Ваш контекст-процессор для корзины
+                "cart.context_processors.cart",
             ],
         },
     },
@@ -207,6 +211,13 @@ STRIPE_API_VERSION = config(
 )  # Проверьте актуальную версию API
 STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET")  # Для верификации вебхуков
 
+# --- YooKassa Payment Settings ---
+YOOKASSA_SHOP_ID = config("YOOKASSA_SHOP_ID")
+YOOKASSA_SECRET_KEY = config("YOOKASSA_SECRET_KEY")
+YOOKASSA_RETURN_URL = config(
+    "YOOKASSA_RETURN_URL", default="https://yourdomain.com/payment/success/"
+)
+
 
 # --- Redis Settings ---
 # Глобальные настройки подключения Redis (используются CACHES и Recommender)
@@ -248,6 +259,16 @@ PARLER_LANGUAGES = {
         ],  # Языки для отката, если перевод отсутствует
         "hide_untranslated": False,  # Показывать ли контент, если нет перевода
     },
+}
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/4",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": config("REDIS_PASSWORD"),
+        },
+    }
 }
 
 
@@ -331,21 +352,31 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-        },
+        "console": {"class": "logging.StreamHandler", "level": "INFO"},
     },
     "root": {
         "handlers": ["console"],
-        "level": "WARNING",  # Уровень по умолчанию
+        "level": "WARNING",  # Оставляем для остальных
     },
     "loggers": {
         "django": {
             "handlers": ["console"],
-            "level": config(
-                "DJANGO_LOG_LEVEL", default="INFO"
-            ),  # Уровень для логов Django
+            "level": config("DJANGO_LOG_LEVEL", default="INFO"),
+            "propagate": False,
+        },
+        "payment.views": {  # Новый логгер для payment.views
+            "handlers": ["console"],
+            "level": "INFO",
             "propagate": False,
         },
     },
 }
+
+# CSP Settings
+CSP_DEFAULT_SRC = ("'self'",)  # Разрешать ресурсы только с текущего домена
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "'unsafe-inline'",
+)  # Разрешить inline-скрипты (для debug_toolbar)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")  # Разрешить inline-стили
+CSP_INCLUDE_NONCE_IN = ["script-src"]  # Добавлять nonce в script-src

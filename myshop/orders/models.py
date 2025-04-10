@@ -1,3 +1,4 @@
+# myshop\orders\models.py
 from decimal import Decimal
 from django.db import models
 from django.core.exceptions import ValidationError

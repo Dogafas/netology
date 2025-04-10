@@ -1,3 +1,4 @@
+# myshop\payment\webhooks.py
 import stripe
 from django.conf import settings
 from django.http import HttpResponse

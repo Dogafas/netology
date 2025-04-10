@@ -1,3 +1,4 @@
+# myshop\payment\tasks.py
 from io import BytesIO
 import weasyprint
 from celery import shared_task

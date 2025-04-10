@@ -58,3 +58,5 @@ webencodings==0.5.1
 zopfli==0.2.3.post1
 gunicorn
 django-redis
+django-csp
+yookassa==3.5.0

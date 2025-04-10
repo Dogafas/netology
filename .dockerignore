@@ -18,6 +18,7 @@ _env/
 env/
 venv/
 *.env
+.env
 
 # OS specific
 .DS_Store
@@ -70,4 +71,5 @@ Thumbs.db
 *.py[cod]
 
 # Sensitive info
-.env
+.env.dev
+.md

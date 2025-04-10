@@ -57,8 +57,22 @@
       </tr>
     </tbody>
   </table>
+
+  <h2>{% translate "Choose payment method" %}</h2>
   <form action="{% url "payment:process" %}" method="post">
-    <input type="submit" value="{% translate "Pay now" %}">
     {% csrf_token %}
+    <div>
+      <label>
+        <input type="radio" name="payment_method" value="stripe" checked>
+        {% translate "Pay with Stripe (International cards)" %}
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="radio" name="payment_method" value="yookassa">
+        {% translate "Pay with ЮKassa (Russian payment methods)" %}
+      </label>
+    </div>
+    <input type="submit" value="{% translate "Pay now" %}">
   </form>
 {% endblock %}
