@@ -43,15 +43,31 @@ def export_to_csv(modeladmin, request, queryset):
 export_to_csv.short_description = "Export to CSV"
 
 
+# def order_payment(obj):
+#     url = obj.get_stripe_url()
+#     if obj.stripe_id:
+#         html = f'<a href="{url}" target="_blank">{obj.stripe_id}</a>'
+#         # вернем неэкранированную ссылку
+#         return mark_safe(html)
+
+# order_payment.short_description = "Stripe payment"
+
+
 def order_payment(obj):
-    url = obj.get_stripe_url()
-    if obj.stripe_id:
-        html = f'<a href="{url}" target="_blank">{obj.stripe_id}</a>'
-        # вернем неэкранированную ссылку
-        return mark_safe(html)
+    payment = obj.payments.first()  # Берем первый связанный платеж
+    if payment:
+        if payment.payment_method == "stripe" and obj.stripe_id:
+            url = obj.get_stripe_url()
+            html = f'<a href="{url}" target="_blank">{obj.stripe_id}</a>'
+            return mark_safe(html)
+        elif payment.payment_method == "yookassa" and payment.payment_id:
+            url = f"https://yookassa.ru/my/payments/{payment.payment_id}"
+            html = f'<a href="{url}" target="_blank">{payment.payment_id}</a>'
+            return mark_safe(html)
+    return None
 
 
-order_payment.short_description = "Stripe payment"
+order_payment.short_description = "Проверить платёж"
 
 
 class OrderItemInline(admin.TabularInline):

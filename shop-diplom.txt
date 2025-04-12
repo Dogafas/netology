@@ -44,3 +44,8 @@ docker-compose exec web python manage.py shell -c "from django.contrib.auth impo
 docker cp "D:\dump-myshop-202504051853.sql" postgres_db:/tmp/mydump.dump
 # Замените ВАШ_... на реальные значения из .env файла!
 docker compose exec -e PGPASSWORD='o9i8u7y6' db pg_restore -U 'postgres' -d 'myshop' -h localhost --clean --if-exists -v /tmp/mydump.dump
+
+
+
+для Юкасса запускаем вебхуки:
+lt --port 8000
