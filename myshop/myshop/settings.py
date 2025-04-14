@@ -55,7 +55,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "csp.middleware.CSPMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware",  # Важно для i18n/l10n и parler
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -131,6 +131,7 @@ LOCALE_PATHS = [
     # os.path.join(BASE_DIR, "locale"), # Общие переводы проекта, если есть
     BASE_DIR / "locale",  # Используем Pathlib для путей
     BASE_DIR / "orders" / "locale",  # Переводы приложения orders
+    BASE_DIR / "cart" / "locale",  # Переводы приложения cart
 ]
 
 TIME_ZONE = "UTC"

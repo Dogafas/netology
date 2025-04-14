@@ -32,11 +32,23 @@
         {% if total_items > 0 %}
           {% translate "Your cart" %}:
           <a href="{% url "cart:cart_detail" %}">
-            {% blocktranslate with total=cart.get_total_price count items=total_items %}
-              {{ items }} item, {{ total }} ₽
-            {% plural %}
-              {{ items }} items, {{ total }} ₽
-            {% endblocktranslate %}
+            {{ total_items }}
+            {% if LANGUAGE_CODE == "ru" %}
+              {% if total_items == 1 %}
+                {% trans "item" %}
+              {% elif total_items >= 2 and total_items <= 4 %}
+                {% trans "items" %}
+              {% else %}
+                {% trans "items_many" %}
+              {% endif %}
+            {% else %}
+              {% if total_items == 1 %}
+                {% trans "item" %}
+              {% else %}
+                {% trans "items" %}
+              {% endif %}
+            {% endif %},
+            {{ cart.get_total_price|floatformat:2 }} ₽
           </a>
         {% else %}
           {% translate "Your cart is empty." %}

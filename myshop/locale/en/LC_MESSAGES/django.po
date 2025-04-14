@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-16 20:23+0700\n"
-"PO-Revision-Date: 2025-03-16 20:30+0000\n"
+"PO-Revision-Date: 2025-04-14 13:09+0000\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -73,36 +73,11 @@ msgstr "AUTOPARTS ONLINE-SHOP"
 
 #: .\shop\templates\shop\base.html:17
 msgid "language"
-msgstr ""
+msgstr "language"
 
 #: .\shop\templates\shop\base.html:33
 msgid "Your cart"
 msgstr "Your cart"
-
-#: .\shop\templates\shop\base.html:35
-#, python-format
-#| msgid ""
-#| "\n"
-#| "              %(items)s item, %(total)s ₽\n"
-#| "              "
-#| msgid_plural ""
-#| "\n"
-#| "              %(items)s items, %(total)s ₽\n"
-#| "              "
-msgid ""
-"\n"
-"              %(items)s item, %(total)s ₽\n"
-"            "
-msgid_plural ""
-"\n"
-"              %(items)s items, %(total)s ₽\n"
-"            "
-msgstr[0] ""
-"\n"
-"%(items)s item, %(total)s ₽"
-msgstr[1] ""
-"\n"
-"%(items)s items, %(total)s ₽"
 
 #: .\shop\templates\shop\base.html:42
 msgid "Your cart is empty."

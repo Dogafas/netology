@@ -49,3 +49,4 @@ docker compose exec -e PGPASSWORD='o9i8u7y6' db pg_restore -U 'postgres' -d 'mys
 
 для Юкасса запускаем вебхуки:
 lt --port 8000
+https://................../payment/webhook/yookassa/

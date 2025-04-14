@@ -31,7 +31,7 @@ urlpatterns = i18n_patterns(
     path(_("orders/"), include("orders.urls", namespace="orders")),
     path(_("payment/"), include("payment.urls", namespace="payment")),
     path(_("coupons/"), include("coupons.urls", namespace="coupons")),
-    path("rosetta/", include("rosetta.urls")),
+    # path("rosetta/", include("rosetta.urls")),
     path("", include("shop.urls", namespace="shop")),
     path("__debug__/", include("debug_toolbar.urls")),
 )
@@ -43,3 +43,4 @@ urlpatterns += [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [path("rosetta/", include("rosetta.urls"))]

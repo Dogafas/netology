@@ -8,16 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-19 18:16+0700\n"
-"PO-Revision-Date: 2025-03-18 21:32+0700\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2025-04-14 13:09+0000\n"
+"Last-Translator:   <>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 2);\n"
+"X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: .\cart\forms.py:9 .\cart\templates\cart\detail.html:20
 #: .\payment\templates\payment\process.html:17
@@ -156,13 +155,16 @@ msgid "Your cart"
 msgstr "Ваша корзина"
 
 #: .\shop\templates\shop\base.html:35
-#, python-format
-msgid "%(items)s item, %(total)s ₽"
-msgid_plural "%(items)s items, %(total)s ₽"
-msgstr[0] "%(items)s товар, %(total)s ₽"
-msgstr[1] "%(items)s товара, %(total)s ₽"
-msgstr[2] "%(items)s товаров, %(total)s ₽"
-msgstr[3] "%(items)s товаров, %(total)s ₽"
+msgid "item"
+msgstr "товар"
+
+#: .\shop\templates\shop\base.html:37
+msgid "items"
+msgstr "товара"
+
+#: .\shop\templates\shop\base.html:39
+msgid "items_many"
+msgstr "товаров"
 
 #: .\shop\templates\shop\base.html:42
 msgid "Your cart is empty."
