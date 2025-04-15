@@ -37,21 +37,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Ваши приложения
+    "rest_framework",
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
     "payment.apps.PaymentConfig",
     "shop.apps.ShopConfig",
     "coupons.apps.CouponsConfig",
-    # Сторонние приложения
     "rosetta",
     "parler",
     "localflavor",
-    # 'debug_toolbar' будет добавлен ниже, если DEBUG=True
+    "django_filters",
 ]
 
 MIDDLEWARE = [
-    # SecurityMiddleware должен быть одним из первых
     "django.middleware.security.SecurityMiddleware",
     "csp.middleware.CSPMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -61,7 +59,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware' будет добавлен ниже, если DEBUG=True
 ]
 
 ROOT_URLCONF = "myshop.urls"
@@ -69,7 +66,7 @@ ROOT_URLCONF = "myshop.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],  # Можно добавить os.path.join(BASE_DIR, 'templates') если есть общие шаблоны
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -84,7 +81,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "myshop.wsgi.application"
-ASGI_APPLICATION = "myshop.asgi.application"  # Убедитесь, что asgi.py настроен, если планируете использовать ASGI/Channels
+ASGI_APPLICATION = "myshop.asgi.application"
 
 
 # --- Database Settings ---
@@ -96,9 +93,7 @@ DATABASES = {
         "NAME": config("POSTGRES_DB"),
         "USER": config("POSTGRES_USER"),
         "PASSWORD": config("POSTGRES_PASSWORD"),
-        "HOST": config(
-            "POSTGRES_HOST"
-        ),  # Должно быть имя сервиса из docker-compose, например 'db'
+        "HOST": config("POSTGRES_HOST"),
         "PORT": config("POSTGRES_PORT", default=5432, cast=int),
     }
 }
@@ -128,42 +123,31 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [
-    # os.path.join(BASE_DIR, "locale"), # Общие переводы проекта, если есть
-    BASE_DIR / "locale",  # Используем Pathlib для путей
-    BASE_DIR / "orders" / "locale",  # Переводы приложения orders
-    BASE_DIR / "cart" / "locale",  # Переводы приложения cart
+    BASE_DIR / "locale",
+    BASE_DIR / "orders" / "locale",
+    BASE_DIR / "cart" / "locale",
 ]
 
 TIME_ZONE = "UTC"
-
-USE_I18N = True  # Включаем систему переводов Django
-
-USE_L10N = True  # Включаем локализацию форматов (устарело с Django 5.0, USE_FORMAT_LOCALIZATION=True)
-USE_FORMAT_LOCALIZATION = True  # Для Django 5.0+
-
-USE_TZ = True  # Включаем поддержку часовых поясов
+USE_I18N = True
+USE_L10N = True
+USE_FORMAT_LOCALIZATION = True
+USE_TZ = True
 
 
 # --- Static files (CSS, JavaScript, Images) ---
 # https://docs.djangoproject.com/en/stable/howto/static-files/
-
-STATIC_URL = "/static/"  # URL для статических файлов
-STATIC_ROOT = (
-    BASE_DIR / "staticfiles"
-)  # Папка, куда collectstatic будет собирать все статические файлы для Nginx
-
-# STATICFILES_DIRS = [BASE_DIR / "static"] # Если есть общая папка static в корне проекта
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # --- Media files (User-uploaded content) ---
 MEDIA_URL = "/media/"  # URL для медиа файлов
 MEDIA_ROOT = BASE_DIR / "media"  # Папка для хранения загруженных пользователями файлов
 
-
 # --- Default primary key field type ---
 # https://docs.djangoproject.com/en/stable/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 # --- Cart Settings ---
 CART_SESSION_ID = "cart"  # Ключ сессии для корзины
@@ -178,14 +162,11 @@ REDIS_CELERY_DB = config(
     "REDIS_DB", default=2, cast=int
 )  # REDIS_DB -> REDIS_CELERY_DB для ясности
 CELERY_RESULT_BACKEND = f"redis://:{config('REDIS_PASSWORD', default='')}@{config('REDIS_HOST')}:{config('REDIS_PORT', cast=int)}/{REDIS_CELERY_DB}"
-
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = config(
-    "CELERY_TIMEZONE", default=TIME_ZONE
-)  # Используем TIME_ZONE проекта по умолчанию
-CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True  # Попытка переподключения при старте
+CELERY_TIMEZONE = config("CELERY_TIMEZONE", default=TIME_ZONE)
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 
 # --- Email Settings ---
@@ -203,7 +184,6 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default=EMAIL_HOST_USER)
 
-
 # --- Stripe Payment Settings ---
 STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
@@ -219,31 +199,15 @@ YOOKASSA_RETURN_URL = config(
     "YOOKASSA_RETURN_URL", default="https://yourdomain.com/payment/success/"
 )
 
-
 # --- Redis Settings ---
 # Глобальные настройки подключения Redis (используются CACHES и Recommender)
 REDIS_HOST = config("REDIS_HOST", default="redis")
 REDIS_PORT = config("REDIS_PORT", default=6379, cast=int)
-REDIS_PASSWORD = config("REDIS_PASSWORD", default="")  # Пустая строка, если пароля нет
-
-# --- Cache Settings (using Redis) ---
-# Используем базу Redis (по умолчанию 0) для кэша Django
-REDIS_CACHE_DB = config("REDIS_CACHE_DB", default=0, cast=int)
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/{REDIS_CACHE_DB}",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
-    }
-}
+REDIS_PASSWORD = config("REDIS_PASSWORD", default="")
 
 # --- Recommender Settings (using Redis) ---
 # Используем отдельную базу Redis (по умолчанию 3) для системы рекомендаций
 RECOMMENDER_REDIS_DB = config("RECOMMENDER_REDIS_DB", default=3, cast=int)
-# Приложение recommender будет использовать REDIS_HOST, REDIS_PORT, REDIS_PASSWORD и RECOMMENDER_REDIS_DB
-
 
 # --- django-parler Settings ---
 PARLER_LANGUAGES = {
@@ -252,28 +216,24 @@ PARLER_LANGUAGES = {
         {"code": "ru"},  # Russian
     ),
     "default": {
-        "language_code": LANGUAGE_CODE,  # Используем основной язык сайта
+        "language_code": LANGUAGE_CODE,
         "fallbacks": [
             LANGUAGE_CODE,
             "en",
             "ru",
-        ],  # Языки для отката, если перевод отсутствует
-        "hide_untranslated": False,  # Показывать ли контент, если нет перевода
+        ],
+        "hide_untranslated": False,
     },
 }
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/4",
+        "LOCATION": f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/4",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": config("REDIS_PASSWORD"),
         },
     }
 }
-
-
-# --- Security Settings ---
 
 # Доверяем заголовкам от Nginx (или другого прокси)
 # Важно, если Nginx терминирует SSL и передает запрос по HTTP
@@ -286,9 +246,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_TRUSTED_ORIGINS = config(
     "CSRF_TRUSTED_ORIGINS",
     default="",  # По умолчанию пусто, но в .env нужно указать!
-    cast=lambda v: [
-        s.strip() for s in v.split(",") if s.strip()
-    ],  # Разделяем запятыми и убираем пустые строки
+    cast=lambda v: [s.strip() for s in v.split(",") if s.strip()],
 )
 # Пример значения в .env: CSRF_TRUSTED_ORIGINS=https://your_domain.com,http://your_domain.com
 
@@ -317,7 +275,6 @@ if not DEBUG:
         "SECURE_CONTENT_TYPE_NOSNIFF", default=True, cast=bool
     )
 
-
 # --- Debug Toolbar Settings (только для режима DEBUG) ---
 if DEBUG:
     # Включаем приложение
@@ -345,7 +302,6 @@ if DEBUG:
     # Настройки Email для отладки (вывод в консоль)
     # Раскомментируйте, если хотите видеть письма в консоли во время разработки
     # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 
 # --- Logging Configuration (Пример базовой настройки) ---
 # TODO: Настроить логирование для продакшена (например, запись в файл или отправка в сервис)
@@ -381,3 +337,16 @@ CSP_SCRIPT_SRC = (
 )  # Разрешить inline-скрипты (для debug_toolbar)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")  # Разрешить inline-стили
 CSP_INCLUDE_NONCE_IN = ["script-src"]  # Добавлять nonce в script-src
+
+# конфигурация REST Framework
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}

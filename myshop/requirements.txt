@@ -60,3 +60,4 @@ gunicorn
 django-redis
 django-csp
 yookassa==3.5.0
+django-filter
