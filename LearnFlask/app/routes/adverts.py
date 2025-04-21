@@ -1,5 +1,5 @@
 # app/routes/adverts.py
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import jwt_required
 from app.models.advert import Advert
 from app.utils.auth import get_current_user
@@ -30,7 +30,10 @@ def create_advert():
 @jwt_required()
 def update_advert(id):
     user = get_current_user()
-    advert = Advert.query.get_or_404(id)
+    # advert = Advert.query.get_or_404(id)
+    advert = db.session.get(Advert, id)
+    if advert is None:
+        abort(404, description=f"Advert with id {id} not found")
 
     if advert.owner_id != user.id:
         return jsonify({"message": "Unauthorized"}), 403
@@ -47,7 +50,10 @@ def update_advert(id):
 @jwt_required()
 def delete_advert(id):
     user = get_current_user()
-    advert = Advert.query.get_or_404(id)
+    # advert = Advert.query.get_or_404(id)
+    advert = db.session.get(Advert, id)
+    if advert is None:
+        abort(404, description=f"Advert with id {id} not found")
 
     if advert.owner_id != user.id:
         return jsonify({"message": "Unauthorized"}), 403
