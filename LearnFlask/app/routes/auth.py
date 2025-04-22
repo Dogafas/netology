@@ -24,21 +24,6 @@ def register():
     return jsonify({"message": "User registered successfully"}), 201
 
 
-# @auth_bp.route("/login", methods=["POST"])
-# def login():
-#     data = request.get_json()
-#     user = User.query.filter_by(email=data.get("email")).first()
-
-#     if not user or not user.check_password(data.get("password")):
-#         return jsonify({"message": "Invalid credentials"}), 401
-
-#     access_token = create_access_token(identity=str(user.id))
-#     return jsonify({"access_token": access_token}), 200
-
-# app/routes/auth.py
-# ... (импорты как раньше)
-
-
 @auth_bp.route("/login", methods=["POST"])
 def login():
     data = request.get_json()

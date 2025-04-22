@@ -30,7 +30,6 @@ def create_advert():
 @jwt_required()
 def update_advert(id):
     user = get_current_user()
-    # advert = Advert.query.get_or_404(id)
     advert = db.session.get(Advert, id)
     if advert is None:
         abort(404, description=f"Advert with id {id} not found")
@@ -50,7 +49,6 @@ def update_advert(id):
 @jwt_required()
 def delete_advert(id):
     user = get_current_user()
-    # advert = Advert.query.get_or_404(id)
     advert = db.session.get(Advert, id)
     if advert is None:
         abort(404, description=f"Advert with id {id} not found")
