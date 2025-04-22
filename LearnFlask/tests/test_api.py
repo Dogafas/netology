@@ -213,8 +213,7 @@ def test_login_wrong_method(client):
     assert response.status_code == 405  # Method Not Allowed
 
 
-# Тесты для POST /api/adverts/ (Создание)
-# ========================================
+# Тесты для POST /api/adverts/ (Создание объявлений)
 
 
 def test_create_advert_success(client, auth_headers, db_session):
@@ -268,8 +267,7 @@ def test_create_advert_missing_description(client, auth_headers):
     assert response.json == {"message": "Title and description are required"}
 
 
-# Тесты для GET /api/adverts/ (Получение списка)
-# ============================================
+# Тесты для GET /api/adverts/ (Получение списка объявлений)
 
 
 def test_get_adverts_empty(client):
@@ -310,7 +308,6 @@ def test_get_adverts_with_data(client, db_session):
 
 
 # Тесты для PUT /api/adverts/<id> (Обновление)
-# ===========================================
 
 
 def test_update_advert_success(client, auth_headers, db_session):
@@ -418,13 +415,12 @@ def test_update_advert_forbidden(client, db_session, auth_headers):
 
     # Assert
     assert response.status_code == 403  # Ожидаем Forbidden
-    # Проверяем, что данные в БД не изменились
+    # Проверяем, что данные объявления в БД не изменились
     original_advert = db_session.get(Advert, advert_b.id)
     assert original_advert.title == "B's Advert"
 
 
 # Тесты для DELETE /api/adverts/<id> (Удаление)
-# ============================================
 
 
 def test_delete_advert_success(client, auth_headers, db_session):

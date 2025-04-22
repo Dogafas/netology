@@ -9,8 +9,6 @@ sys.path.insert(0, project_root)
 import pytest
 from app import create_app, db
 from app.config import TestConfig
-
-# Импортируем модели, чтобы можно было удалить данные
 from app.models.user import User
 from app.models.advert import Advert
 
@@ -29,7 +27,7 @@ def app():
         yield _app  # Предоставляем приложение тестам
 
         print("\n--- [Session Teardown] Dropping all tables in test database ---")
-        db.session.remove()  # Важно убрать сессию перед drop_all
+        db.session.remove()
         db.drop_all()
 
 
@@ -39,33 +37,11 @@ def client(app):
     return app.test_client()
 
 
-# Фикстура сессии теперь очень простая
 @pytest.fixture()
 def db_session(app):
     """Предоставляет стандартную сессию Flask-SQLAlchemy db.session."""
     with app.app_context():
         yield db.session
-
-
-# Эта фикстура будет автоматически очищать ДАННЫЕ после КАЖДОГО теста
-# @pytest.fixture(autouse=True)
-# def clean_tables(app, db_session):  # Зависит от db_session для контекста
-#     """Очищает данные из таблиц после каждого теста."""
-#     yield  # Даем тесту выполниться
-
-#     # Очистка данных после теста
-#     print("\n--- [Test Teardown] Cleaning data from tables ---")
-#     # Используем meta.sorted_tables для правильного порядка удаления (если есть FK)
-#     # или просто перечисляем в обратном порядке зависимостей
-#     try:
-#         # db_session.query(Advert).delete() # Сначала удаляем из зависимых таблиц
-#         db_session.query(User).delete()  # Потом из основных
-#         db_session.commit()  # Подтверждаем удаление
-#     except Exception as e:
-#         print(f"Error during table cleanup: {e}")
-#         db_session.rollback()  # Откатываем, если удаление не удалось
-#     finally:
-#         db_session.remove()  # Убираем сессию в любом случае
 
 
 @pytest.fixture(autouse=True)
@@ -89,7 +65,6 @@ def clean_tables(app, db_session):  # Зависит от db_session для ко
         db_session.remove()  # Убираем сессию в любом случае
 
 
-# Фикстура для получения заголовков аутентифицированного пользователя
 @pytest.fixture()
 def auth_headers(client, db_session):
     """
@@ -113,5 +88,5 @@ def auth_headers(client, db_session):
 
     # 3. Формируем заголовки
     headers = {"Authorization": f"Bearer {access_token}"}
-    # Возвращаем заголовки и пользователя (может пригодиться для проверки owner_id)
+    # Возвращаем заголовки и пользователя
     return headers, user
