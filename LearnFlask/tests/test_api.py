@@ -467,7 +467,6 @@ def test_delete_advert_unauthorized(client, db_session):
     assert response.status_code == 401
 
     # Проверяем БД - объявление должно остаться
-    # assert db_session.query(Advert).get(advert_id) is not None
     assert db_session.get(Advert, advert_id) is not None
 
 
@@ -492,5 +491,4 @@ def test_delete_advert_forbidden(client, db_session, auth_headers):
     # Assert
     assert response.status_code == 403  # Ожидаем Forbidden
     # Проверяем БД - объявление должно остаться
-    # assert db_session.query(Advert).get(advert_b_id) is not None
     assert db_session.get(Advert, advert_b_id) is not None
