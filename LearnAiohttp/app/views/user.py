@@ -2,7 +2,6 @@
 from aiohttp import web
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError  # Для отлова ошибки уникальности
-
 from app.schemas import UserCreate, UserLogin, UserResponse, Token
 from app.models import User
 from app.crud import user as crud_user
@@ -58,15 +57,13 @@ async def register_user(request: web.Request) -> web.Response:
             )
 
         # Преобразуем ORM модель в Pydantic схему для ответа
-        response_data = UserResponse.model_validate(created_user)  # Pydantic V2
-        # Для Pydantic V1: response_data = UserResponse.from_orm(created_user)
+        response_data = UserResponse.model_validate(created_user)
 
         return web.Response(
             body=orjson.dumps(response_data.model_dump()),
             status=201,
             content_type="application/json",
         )
-        # Для Pydantic V1: return web.json_response(response_data.dict(), status=201)
 
 
 async def login_for_access_token(request: web.Request) -> web.Response:
@@ -104,4 +101,3 @@ async def login_for_access_token(request: web.Request) -> web.Response:
             body=orjson.dumps(token_response.model_dump()),
             content_type="application/json",
         )
-        # Для Pydantic V1: return web.json_response(token_response.dict())

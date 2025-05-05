@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import User
 from app.security import get_user_from_token
-from app.db import get_db_session  # Импортируем менеджер сессий
+from app.db import get_db_session  # менеджер сессий
 
 
 async def get_request_user(request: web.Request) -> Optional[User]:
@@ -54,8 +54,7 @@ async def validate_request_data(
         raise web.HTTPBadRequest(reason="Invalid JSON body")
 
     try:
-        validated_data = schema.model_validate(json_data)  # Pydantic V2
-        # Для Pydantic V1 используйте: validated_data = schema(**json_data)
+        validated_data = schema.model_validate(json_data)
         return validated_data
     except ValidationError as e:
         # Формируем сообщение об ошибке валидации
