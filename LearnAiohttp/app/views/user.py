@@ -100,7 +100,7 @@ async def login_for_access_token(request: web.Request) -> web.Response:
 
         # Формируем ответ с токеном
         token_response = Token(access_token=access_token)
-        return web.Responce(
+        return web.Response(
             body=orjson.dumps(token_response.model_dump()),
             content_type="application/json",
         )
