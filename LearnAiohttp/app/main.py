@@ -3,26 +3,12 @@
 from aiohttp import web
 
 # Импортируем функции для работы с БД и настройки роутов
-from app.db import init_db, close_db
+from app.db import close_db
 from app.routes import setup_routes
 from app.middlewares import auth_middleware
 
 # Можно импортировать и конфигурацию, если она нужна прямо здесь
 # from app.config import ...
-
-
-async def init_database(app: web.Application):
-    """Сигнал для инициализации базы данных при старте приложения."""
-    print("Application startup: initializing database...")
-    # В реальном приложении здесь может быть более сложная логика,
-    # например, ожидание доступности БД перед попыткой инициализации.
-    try:
-        await init_db()
-        print("Database initialized successfully.")
-    except Exception as e:
-        print(f"Error during database initialization: {e}")
-        # В зависимости от политики, можно остановить запуск приложения
-        # raise e
 
 
 async def shutdown_database(app: web.Application):
@@ -42,7 +28,6 @@ def create_app() -> web.Application:
     print("Configuring application...")
 
     # --- Настройка сигналов ---
-    app.on_startup.append(init_database)
     app.on_shutdown.append(shutdown_database)
 
     # --- Настройка маршрутов ---

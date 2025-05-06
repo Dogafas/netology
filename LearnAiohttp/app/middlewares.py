@@ -1,13 +1,12 @@
 # app\middlewares.py
 
-from typing import Awaitable, Callable, Dict, Set
+from typing import Awaitable, Callable, Set
 from aiohttp import web
 from aiohttp.web_request import Request
 from aiohttp.web_response import StreamResponse
-
 from app.db import get_db_session
 from app.security import get_user_from_token
-from app.models import User 
+from app.models import User
 
 # Определим множество имен роутов, которые требуют аутентификации
 # Имена берутся из файла app/routes.py (параметр name=...)
