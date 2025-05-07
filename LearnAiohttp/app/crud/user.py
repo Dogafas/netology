@@ -3,8 +3,6 @@
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy.orm import selectinload  # Для жадной загрузки связей, если понадобится
-
 from app.models import User
 from app.schemas import UserCreate  # Используем схему для входных данных
 

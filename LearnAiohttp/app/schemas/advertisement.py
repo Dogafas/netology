@@ -4,9 +4,6 @@ import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, ConfigDict
 
-# Импортируем схему ответа пользователя для вложенности
-from .user import UserResponse
-
 # --- Базовые схемы ---
 
 
@@ -47,6 +44,4 @@ class AdvertisementResponse(AdvertisementBase):
     owner_id: int
     # Можно добавить информацию о владельце, если это необходимо
     # owner: UserResponse # Если раскомментировать, Pydantic попытается получить связанный объект owner
-
-    # В Pydantic V2 используется model_config вместо Config
     model_config = ConfigDict(from_attributes=True)

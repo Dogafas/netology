@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload  # Для жадной загрузки владельца
 
-from app.models import Advertisement, User
+from app.models import Advertisement
 from app.schemas import AdvertisementCreate, AdvertisementUpdate
 
 

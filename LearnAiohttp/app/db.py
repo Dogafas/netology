@@ -4,7 +4,6 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
-
 from app.config import DATABASE_URL  # Импортируем DSN из конфига
 from app.models.base import Base  # Импортируем базовый класс моделей
 
@@ -51,8 +50,6 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
     async with AsyncSessionLocal() as session:
         try:
             yield session
-            # Коммит не делается здесь, он должен делаться в коде, использующем сессию
-            # await session.commit() # Если нужен автокоммит в конце блока
         except Exception as e:
             # При любой ошибке откатываем транзакцию
             await session.rollback()

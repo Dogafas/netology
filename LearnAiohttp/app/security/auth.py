@@ -47,8 +47,6 @@ def get_password_hash(password: str) -> str:
 
 
 # --- Работа с JWT ---
-
-
 def create_access_token(
     data: Dict[str, Any], expires_delta: Optional[timedelta] = None
 ) -> str:
