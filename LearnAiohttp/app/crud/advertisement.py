@@ -96,9 +96,7 @@ async def update_advertisement(
         Обновленный объект Advertisement.
     """
     # Получаем данные из схемы как словарь
-    update_data = ad_in.model_dump(
-        exclude_unset=True
-    )  # В Pydantic V1: ad_in.dict(exclude_unset=True)
+    update_data = ad_in.model_dump(exclude_unset=True)
 
     # Обновляем поля модели данными из словаря
     for field, value in update_data.items():

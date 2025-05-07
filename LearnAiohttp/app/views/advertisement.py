@@ -99,8 +99,7 @@ async def update_advertisement(request: web.Request) -> web.Response:
         return e
 
     # Проверяем, переданы ли вообще поля для обновления
-    if not ad_in.model_dump(exclude_unset=True):  # Pydantic V2
-        # Для Pydantic V1: if not ad_in.dict(exclude_unset=True):
+    if not ad_in.model_dump(exclude_unset=True):
         raise web.HTTPBadRequest(reason="No fields provided for update in request body")
 
     async with get_db_session() as db_session:
