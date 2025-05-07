@@ -1,0 +1,62 @@
+# Python virtual environment
+myenv/
+.venv/
+venv/
+env/
+ENV/
+# Распространенные имена виртуальных окружений
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE and editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Docker specific files (если они в контексте сборки)
+# Dockerfile # Обычно Dockerfile не копируют сам в себя, но на всякий случай
+# docker-compose.yml
+
+# Build artifacts and distribution files
+dist/
+build/
+*.egg-info/
+*.egg
+*.tar.gz
+*.whl
+
+# Local environment configuration (не должен попадать в образ, передается через env vars)
+.env
+*.env.*
+
+# Test files and reports (если не нужны в production образе)
+tests/
+htmlcov/
+.coverage
+*.cover
+pytest_cache/
+.pytest_cache/
+
+# Alembic specific (если не нужны все логи и т.д. в образе)
+# migrations/versions/.DS_Store # Пример
+
+# Git specific files
+.git/
+.gitignore
+.gitattributes
+
+# Logs
+*.log
+logs/
+
+# Other temporary or local files
+*.tmp
+*.bak

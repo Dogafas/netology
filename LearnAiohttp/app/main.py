@@ -7,9 +7,6 @@ from app.db import close_db
 from app.routes import setup_routes
 from app.middlewares import auth_middleware
 
-# Можно импортировать и конфигурацию, если она нужна прямо здесь
-# from app.config import ...
-
 
 async def shutdown_database(app: web.Application):
     """Сигнал для закрытия соединения с БД при остановке приложения."""
