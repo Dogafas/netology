@@ -60,3 +60,4 @@ logs/
 # Other temporary or local files
 *.tmp
 *.bak
+myenv_clean/
