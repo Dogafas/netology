@@ -2,13 +2,13 @@
 services:
   app:
     build: . 
-    container_name: fastapi_ads_app 
+    container_name: fastapi_ads_app
     ports:
       - "8000:8000" 
     volumes:
       - ./app:/app/app
     env_file:
-      - .env.example
+      - .env
     depends_on:
       db: 
         condition: service_healthy 
@@ -20,7 +20,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - .env.example
+      - .env
     ports:
       - "127.0.0.1:5432:5432" 
     healthcheck:
