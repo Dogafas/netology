@@ -7,7 +7,7 @@ from fastapi import FastAPI, Depends, HTTPException, status, Response
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from . import crud, models, schemas, security
-from .database import engine, Base, get_async_session
+from .database import engine, Base, get_async_session, async_session_factory
 from .config import settings
 from datetime import timedelta
 
@@ -19,7 +19,9 @@ async def create_db_and_tables():
     logger.info("Attempting to create database tables...")
     async with engine.begin() as conn:
         # ВНИМАНИЕ: Это удалит существующие таблицы и создаст новые!
-        # await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(
+            Base.metadata.drop_all
+        )  # все существующие таблицы будут удалены
         await conn.run_sync(Base.metadata.create_all)
     logger.info("Database tables created (if they didn't exist or were recreated).")
 
@@ -28,8 +30,8 @@ async def create_db_and_tables():
 async def lifespan(app: FastAPI):
     await create_db_and_tables()
     # Можно создать пользователя-администратора по умолчанию при старте, если его нет
-    # async with get_async_session() as db: # Получаем сессию напрямую
-    #    await create_default_admin_user(db)
+    async with async_session_factory() as db:  # Получаем сессию напрямую
+        await create_default_admin_user(db)
     yield
     logger.info("Application shutdown.")
 
@@ -52,28 +54,36 @@ OptionalCurrentUser = Annotated[
 AdminUser = Annotated[models.User, Depends(security.get_current_admin_user)]
 
 
-# --- Вспомогательная функция для создания админа (опционально) ---
+# --- Вспомогательная функция для создания админа (при старте, опционально) ---
+# app/main.py
 async def create_default_admin_user(db: AsyncSession):
     admin_username = getattr(settings, "ADMIN_USERNAME", "admin")
     admin_email = getattr(settings, "ADMIN_EMAIL", "admin@example.com")
     admin_password = getattr(settings, "ADMIN_PASSWORD", "adminpassword")
 
+    # Проверяем по username
     user = await crud.get_user_by_username(db, username=admin_username)
     if not user:
-        admin_in = schemas.UserCreate(
-            username=admin_username,
-            email=admin_email,
-            password=admin_password,
-            group=models.UserGroup.ADMIN,
-        )
-        await crud.create_user(db=db, user=admin_in)
-        logger.info(f"Default admin user '{admin_username}' created.")
+        # Также стоит проверить по email, если username не найден,
+        # т.к. email тоже уникальный
+        user_by_email = await crud.get_user_by_email(db, email=admin_email)
+        if not user_by_email:
+            admin_in = schemas.UserCreate(
+                username=admin_username,
+                email=admin_email,
+                password=admin_password,
+                group=models.UserGroup.ADMIN,
+            )
+            await crud.create_user(db=db, user=admin_in)
+            logger.info(f"Default admin user '{admin_username}' created.")
+        else:
+            logger.info(
+                f"Default admin user with email '{admin_email}' already exists (found by email). Username in DB: {user_by_email.username}"
+            )
     else:
-        logger.info(f"Default admin user '{admin_username}' already exists.")
-
-
-# Если нужно создавать админа при старте, раскомментируй вызов в lifespan
-# и добавь ADMIN_USERNAME, ADMIN_EMAIL, ADMIN_PASSWORD в config.py и .env
+        logger.info(
+            f"Default admin user '{admin_username}' already exists (found by username)."
+        )
 
 
 # --- Эндпоинт для входа (Login) ---

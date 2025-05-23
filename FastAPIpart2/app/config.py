@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import PostgresDsn  # Специальный тип для DSN PostgreSQL
+from pydantic import PostgresDsn, EmailStr
 
 
 class Settings(BaseSettings):
@@ -30,6 +30,11 @@ class Settings(BaseSettings):
     )
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 48 * 60  # 48 часов = 2880 минут
+
+    # НАСТРОЙКИ ДЛЯ АДМИНИСТРАТОРА ПО УМОЛЧАНИЮ
+    ADMIN_USERNAME: str = "admin"
+    ADMIN_EMAIL: EmailStr = "admin@example.com"
+    ADMIN_PASSWORD: str = "Changeme123!"  # Обязательно изменить это в .env!
 
     @property
     def DATABASE_URL_ASYNC(self) -> PostgresDsn:
