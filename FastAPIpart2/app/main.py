@@ -19,17 +19,17 @@ async def create_db_and_tables():
     logger.info("Attempting to create database tables...")
     async with engine.begin() as conn:
         # ВНИМАНИЕ: Это удалит существующие таблицы и создаст новые!
-        await conn.run_sync(
-            Base.metadata.drop_all
-        )  # все существующие таблицы будут удалены
+        # await conn.run_sync(
+        #     Base.metadata.drop_all
+        # )  # все существующие таблицы будут удалены
         await conn.run_sync(Base.metadata.create_all)
-    logger.info("Database tables created (if they didn't exist or were recreated).")
+    logger.info("Database tables checked/created.")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await create_db_and_tables()
-    # Можно создать пользователя-администратора по умолчанию при старте, если его нет
+    # Создать пользователя-администратора по умолчанию при старте, если его нет
     async with async_session_factory() as db:  # Получаем сессию напрямую
         await create_default_admin_user(db)
     yield
@@ -40,7 +40,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Ads Service API",
     description="API для управления объявлениями и пользователями",
-    version="0.2.0",  # Обновим версию
+    version="0.2.0",  # Обновим версию :-)
     lifespan=lifespan,
 )
 
@@ -55,7 +55,7 @@ AdminUser = Annotated[models.User, Depends(security.get_current_admin_user)]
 
 
 # --- Вспомогательная функция для создания админа (при старте, опционально) ---
-# app/main.py
+
 async def create_default_admin_user(db: AsyncSession):
     admin_username = getattr(settings, "ADMIN_USERNAME", "admin")
     admin_email = getattr(settings, "ADMIN_EMAIL", "admin@example.com")

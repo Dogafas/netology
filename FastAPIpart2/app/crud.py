@@ -4,7 +4,6 @@ from sqlalchemy import select, func, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from typing import Optional, Sequence
-
 from . import models
 from . import schemas
 from .security import get_password_hash  # Импортируем функцию для хеширования пароля
@@ -120,7 +119,7 @@ async def delete_user(db: AsyncSession, user_id: int) -> Optional[models.User]:
     return db_user  # Возвращаем удаленный объект (до коммита он еще доступен)
 
 
-# --- CRUD для объявлений (пока без изменений, но скоро потребуются доработки) ---
+# --- CRUD для объявлений ---
 
 
 async def create_advertisement(
@@ -172,8 +171,6 @@ async def search_advertisements(
         filter_conditions.append(models.Advertisement.price >= params.min_price)
     if params.max_price is not None:
         filter_conditions.append(models.Advertisement.price <= params.max_price)
-
-    # TODO: Возможно, добавить фильтрацию по owner_id или username владельца?
 
     if filter_conditions:
         query = query.where(and_(*filter_conditions))
