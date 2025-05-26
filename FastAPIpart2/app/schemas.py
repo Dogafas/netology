@@ -83,7 +83,7 @@ class TokenData(BaseModel):
     # group: Optional[UserGroup] = None
 
 
-# --- Существующие схемы для Advertisement (нужно обновить AdvertisementCreate и Advertisement) ---
+# --- Существующие схемы для Advertisement ---
 
 
 class AdvertisementBase(BaseModel):
