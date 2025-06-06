@@ -1,8 +1,16 @@
+виртуалка запуск:
+PS D:\NETOLOGIA (not for GIT)\shop-diplom\myshop\myshop> cd ..    
+PS D:\NETOLOGIA (not for GIT)\shop-diplom\myshop> .\env\myshop\Scripts\activate; cd myshop
+---------------------------------------------------
+
+
 cd "/mnt/d/НЕТОЛОГИЯ(не для ГИТ)/shop-diplom"
 
 cd "D:\НЕТОЛОГИЯ(не для ГИТ)\shop-diplom"
 
 .\env\myshop\Scripts\activate; cd myshop
+
+env\myshop\Scripts\activate; cd myshop
 
 celery -A myshop worker --loglevel=info --pool=solo
 
@@ -18,8 +26,9 @@ STRIPE_SECRET_KEY=sk_test_XXXXXXXXXXXXXXXXXXXXXXXXX
 1) установить Stripe CLI согласно инструкции приведенной на странице https://docs.stripe.com/stripe-cli
 2) в командной строке: stripe login (перейти по ссылке и разрешить доступ)
 Не забудьде запустить брокер сообщений - RabbitMQ и хранилище кеша - Redis из docker:
-docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13.1-management
-docker run -it --rm --name redis -p 6379:6379 redis:7.2.4
+docker run -it --name rabbitmq -p 5672:5672 -p 15672:15672 --restart=unless-stopped rabbitmq:3.13.1-management
+docker run -it --name redis -p 6379:6379 --restart=unless-stopped redis:7.2.4
+
 3) Запустить команду, чтобы Stripe пересылал события на локальный сервер Django:
 stripe listen --forward-to 127.0.0.1:8000/payment/webhook/
 4) сохранить полученную подпись для вебхуков: "whsec_..........3e1889ecd80" в переменную окружения STRIPE_WEBHOOK_SECRET
@@ -50,4 +59,4 @@ docker compose exec -e PGPASSWORD='o9i8u7y6' db pg_restore -U 'postgres' -d 'mys
 
 для Юкасса запускаем вебхуки:
 lt --port 8000
-https://................../payment/webhook/yookassa/
+https://....вставить ссылку............../payment/webhook/yookassa/

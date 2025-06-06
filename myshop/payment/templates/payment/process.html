@@ -7,37 +7,37 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{% translate "Order summary" %}</h1>
-  <table class="cart">
-    <thead>
-      <tr>
-        <th>{% translate "Image" %}</th>
-        <th>{% translate "Product" %}</th>
-        <th>{% translate "Price" %}</th>
-        <th>{% translate "Quantity" %}</th>
-        <th>{% translate "Total" %}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in order.items.all %}
-        <tr class="row{% cycle "1" "2" %}">
+  <h1 class="mb-4">{% translate "Order summary" %}</h1>
+
+  <div class="table-responsive">
+    <table class="table table-striped align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">{% translate "Image" %}</th>
+          <th scope="col">{% translate "Product" %}</th>
+          <th scope="col">{% translate "Price" %}</th>
+          <th scope="col">{% translate "Quantity" %}</th>
+          <th scope="col">{% translate "Total" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in order.items.all %}
+        <tr>
           <td>
-            <img src="{% if item.product.image %}{{ item.product.image.url }}
-            {% else %}{% static "img/no_image.png" %}{% endif %}">
+            <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" class="img-thumbnail" style="width: 80px; height: auto;">
           </td>
           <td>{{ item.product.name }}</td>
-          <td class="num">{{ item.price }} ₽</td>
-          <td class="num">{{ item.quantity }}</td>
-          <td class="num">{{ item.get_cost }} ₽</td>
+          <td>{{ item.price }} ₽</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.get_cost }} ₽</td>
         </tr>
-      {% endfor %}
-      {% if order.coupon %}
-        <tr class="subtotal">
-          <td>{% translate "Subtotal" %}</td>
+        {% endfor %}
+
+        {% if order.coupon %}
+        <tr>
+          <td><strong>{% translate "Subtotal" %}</strong></td>
           <td colspan="3"></td>
-          <td class="num">
-            {{ order.get_total_cost_before_discount|floatformat:2 }} ₽
-          </td>
+          <td>{{ order.get_total_cost_before_discount|floatformat:2 }} ₽</td>
         </tr>
         <tr>
           <td>
@@ -46,33 +46,33 @@
             {% endblocktranslate %}
           </td>
           <td colspan="3"></td>
-          <td class="num neg">
-            - {{ order.get_discount|floatformat:2 }} ₽
-          </td>
+          <td class="text-danger">-{{ order.get_discount|floatformat:2 }} ₽</td>
         </tr>
-      {% endif %}
-      <tr class="total">
-        <td colspan="3">{% translate "Total" %}</td>
-        <td class="num">{{ order.get_total_cost|floatformat:2 }} ₽</td>
-      </tr>
-    </tbody>
-  </table>
+        {% endif %}
 
-  <h2>{% translate "Choose payment method" %}</h2>
-  <form action="{% url "payment:process" %}" method="post">
+        <tr class="table-primary fw-bold">
+          <td colspan="3">{% translate "Total" %}</td>
+          <td colspan="2">{{ order.get_total_cost|floatformat:2 }} ₽</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="mt-5 mb-3">{% translate "Choose payment method" %}</h2>
+  <form action="{% url 'payment:process' %}" method="post" class="border p-4 rounded bg-light">
     {% csrf_token %}
-    <div>
-      <label>
-        <input type="radio" name="payment_method" value="stripe" checked>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="payment_method" value="stripe" id="stripe" checked>
+      <label class="form-check-label" for="stripe">
         {% translate "Pay with Stripe (International cards)" %}
       </label>
     </div>
-    <div>
-      <label>
-        <input type="radio" name="payment_method" value="yookassa">
+    <div class="form-check mb-4">
+      <input class="form-check-input" type="radio" name="payment_method" value="yookassa" id="yookassa">
+      <label class="form-check-label" for="yookassa">
         {% translate "Pay with ЮKassa (Russian payment methods)" %}
       </label>
     </div>
-    <input type="submit" value="{% translate "Pay now" %}">
+    <button type="submit" class="btn btn-primary">{% translate "Pay now" %}</button>
   </form>
 {% endblock %}

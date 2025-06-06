@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "coupons.apps.CouponsConfig",
     "rosetta",
     "parler",
+    "parler_rest",
     "localflavor",
     "django_filters",
 ]
@@ -205,15 +206,23 @@ REDIS_HOST = config("REDIS_HOST", default="redis")
 REDIS_PORT = config("REDIS_PORT", default=6379, cast=int)
 REDIS_PASSWORD = config("REDIS_PASSWORD", default="")
 
+# Оптимизация Redis
+DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
+DJANGO_REDIS_IGNORE_EXCEPTIONS = True
+
 # --- Recommender Settings (using Redis) ---
 # Используем отдельную базу Redis (по умолчанию 3) для системы рекомендаций
 RECOMMENDER_REDIS_DB = config("RECOMMENDER_REDIS_DB", default=3, cast=int)
 
 # --- django-parler Settings ---
+PARLER_CACHE_TIMEOUT = 86400  # 24 часа в секундах
+PARLER_STORAGE = "parler.storage.RedisStorage"
+PARLER_ENABLE_CACHING = True
+PARLER_CACHE_PREFIX = "parler_"
 PARLER_LANGUAGES = {
     None: (
-        {"code": "en"},  # English
-        {"code": "ru"},  # Russian
+        {"code": "en"},
+        {"code": "ru"},
     ),
     "default": {
         "language_code": LANGUAGE_CODE,
@@ -231,9 +240,30 @@ CACHES = {
         "LOCATION": f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/4",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {
+                "max_connections": 100,
+                "retry_on_timeout": True,
+            },
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            "SOCKET_CONNECT_TIMEOUT": 5,
+            "SOCKET_TIMEOUT": 5,
+            "IGNORE_EXCEPTIONS": True,
         },
-    }
+        "KEY_PREFIX": "myshop",
+    },
+    "parler": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": config("REDIS_URL", default="redis://:password@redis:6379/1"),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+        },
+        "KEY_PREFIX": "parler",
+    },
 }
+
+# Отдельный кэш для parler (опционально)
+PARLER_CACHE_BACKEND = "parler"  # Использует отдельную БД Redis
 
 # Доверяем заголовкам от Nginx (или другого прокси)
 # Важно, если Nginx терминирует SSL и передает запрос по HTTP
@@ -274,6 +304,11 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = config(
         "SECURE_CONTENT_TYPE_NOSNIFF", default=True, cast=bool
     )
+    SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+    CSRF_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_HTTPONLY = True
+    SECURE_BROWSER_XSS_FILTER = False
+
 
 # --- Debug Toolbar Settings (только для режима DEBUG) ---
 if DEBUG:

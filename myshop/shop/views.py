@@ -2,14 +2,9 @@
 from cart.forms import CartAddProductForm
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-from .filters import ProductFilter
+from django.conf import settings
 from .recommender import Recommender
 from .models import Category, Product
-from django.conf import settings
-from rest_framework import generics
-from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import CategorySerializer, ProductSerializer
 
 
 def product_list(request, category_slug=None):
@@ -93,15 +88,3 @@ def product_detail(request, id, slug):
             "recommended_products": recommended_products,
         },
     )
-
-
-class ProductListAPIView(generics.ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = ProductFilter
-
-
-class CategoryListAPIView(generics.ListAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer

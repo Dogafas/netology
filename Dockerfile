@@ -1,3 +1,4 @@
+
 # Этап 1: Сборка с зависимостями сборки
 # Используем Python 3.12 slim-версию на Debian Bullseye как базовый образ
 FROM python:3.12-slim-bullseye AS builder
